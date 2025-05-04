@@ -19,13 +19,13 @@
 		"dist"
 	],
 	"keywords": [
-		"queue",
-		"redis",
-		"custom",
-		"portions",
-		"order",
-		"worker",
-		"nest"
+		"date",
+		"type",
+		"check",
+		"is",
+		"condition",
+		"format",
+		"convert"
 	],
 	"scripts": {
 		"build": "nest build",
@@ -84,5 +84,9 @@
 		],
 		"coverageDirectory": "../coverage",
 		"testEnvironment": "node"
+	},
+	"dependencies": {
+		"date-fns": "^4.1.0",
+		"validator": "^13.15.0"
 	}
 }
