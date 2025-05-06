@@ -1,9 +1,8 @@
 {
 	"name": "full-utils",
-	"version": "0.0.2",
+	"version": "0.0.3",
 	"description": "A set of pure functions for all occasions.",
 	"author": "ihor-bielchenko",
-	"private": true,
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -20,10 +19,14 @@
 	],
 	"keywords": [
 		"date",
+		"data",
+		"var",
+		"value",
 		"type",
 		"check",
+		"if",
 		"is",
-		"condition",
+		"to"
 		"format",
 		"convert"
 	],

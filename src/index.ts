@@ -19,6 +19,7 @@ import { isPhone } from './is/isPhone';
 import { isStr } from './is/isStr';
 import { isStrBool } from './is/isStrBool';
 import { isStrFilled } from './is/isStrFilled';
+import { isStrOrderType } from './is/isStrOrderType';
 import { isVar } from './is/isVar';
 import { toBool } from './to/toBool';
 import { toCellDate } from './to/toCellDate';
@@ -52,6 +53,7 @@ export {
 	isStr,
 	isStrBool,
 	isStrFilled,
+	isStrOrderType,
 	isVar,
 	toBool,
 	toCellDate,
