@@ -1,3 +1,6 @@
+import { isArrFilled } from './is/isArrFilled';
+import { isObjFilled } from './is/isObjFilled';
+import { isStrFilled } from './is/isStrFilled';
 
 export function fromJSON(value) {
 	try {
@@ -9,7 +12,7 @@ export function fromJSON(value) {
 
 			Array
 				.from(value)
-				.forEach((item) => {
+				.forEach((item: any) => {
 					parsed.push(JSON.parse(item));
 				});
 			return parsed;
