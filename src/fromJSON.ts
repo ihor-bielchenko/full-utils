@@ -2,7 +2,7 @@ import { isArrFilled } from './is/isArrFilled';
 import { isObjFilled } from './is/isObjFilled';
 import { isStrFilled } from './is/isStrFilled';
 
-export function fromJSON(value) {
+export function fromJSON(value, isAllowStr?: boolean) {
 	try {
 		let key = ``,
 			parsed: any = {};
@@ -35,6 +35,19 @@ export function fromJSON(value) {
 		|| (value[0] === '`'
 			&& value[value.length - 1] === '`'))) {
 		return value.slice(1).slice(0, value.length - 2);
+	}
+	try {
+		return JSON.parse(`[${value}]`);
+	}
+	catch (err) {
+	}
+	try {
+		return JSON.parse(`{${value}}`);
+	}
+	catch (err) {
+	}
+	if (isStrFilled(value)) {
+		return value;
 	}
 	return null;
 }
