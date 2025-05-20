@@ -30,6 +30,8 @@ import { toInetNtoa } from './to/toInetNtoa';
 import { toNum } from './to/toNum';
 import { toPortions } from './to/toPortions';
 import { toTimestamp } from './to/toTimestamp';
+import { toArrFuncArgs } from './to/toArrFuncArgs';
+import { netTCP } from './net/netTCP';
 
 export {
 	fromJSON,
@@ -64,4 +66,6 @@ export {
 	toNum,
 	toPortions,
 	toTimestamp,
+	toArrFuncArgs,
+	netTCP,
 };
