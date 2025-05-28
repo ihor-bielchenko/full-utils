@@ -1,7 +1,7 @@
 import { isStrFilled } from '../is/isStrFilled';
 import { isNum } from '../is/isNum';
 
-export function toNum(value, fixed: number = 2): number {
+export function toNum(value, fixed = 2) {
 	let valueSplit = [];
 
 	if (isStrFilled(value)) {
@@ -35,6 +35,9 @@ export function toNum(value, fixed: number = 2): number {
 			i++;
 		}
 		return Number.parseFloat(([ valueSplit[0], collector ]).join(`.`));
+	}
+	else if (valueSplit.length === 1) {
+		return Number(valueSplit[0]);
 	}
 	return 0;
 }
