@@ -23,15 +23,15 @@ export function toNum(value, fixed = 2) {
 			collector = ``,
 			afterZero = false;
 
-		while (i < valueSplit.length) {
-			if (valueSplit[i] !== `0`) {
+		while (i < valueSplit[1].length) {
+			if (valueSplit[1][i] !== `0`) {
 				afterZero = true;
 				fixedReady += 1;
 			}
 			if (afterZero && fixedReady > fixed) {
 				break;
 			}
-			collector += valueSplit[i];
+			collector += valueSplit[1][i];
 			i++;
 		}
 		return Number.parseFloat(([ valueSplit[0], collector ]).join(`.`));
