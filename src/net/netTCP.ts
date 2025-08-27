@@ -1,40 +1,69 @@
-const net = require('net');
+import net from 'net';
 
-import { v4 as uuidv4 } from 'uuid';
+export interface NetTCPOptions {
+	port?: number;
+	timeoutMs?: number;
+	encoding?: BufferEncoding;
+}
 
-const _tcpRequestTimers = {};
+export function netTCP(
+	message: string,
+	ipaddr: string,
+	{
+		port = 4028,
+		timeoutMs = 0,
+		encoding = 'utf-8',
+	}: NetTCPOptions = {}
+): Promise<string> {
+	return new Promise<string>((resolve, reject) => {
+		const socket = new net.Socket();
+		const cleanup = () => {
+			socket.removeAllListeners();
+			
+			if (!socket.destroyed) {
+				socket.destroy();
+			}
+		};
+		let output = '',
+			settled = false;
 
-export async function netTCP(message: string, ipaddr: string, timeout: number = 0): Promise<string> {
-	const socketClient = new net.Socket();
-		
-	return await (new Promise((resolve, reject) => {
-		const id = uuidv4();
-		let output = '';
-
-		socketClient.connect(4028, ipaddr, () => socketClient.write(message));
-		socketClient.on('connect', () => {
+		if (timeoutMs && timeoutMs > 0) {
+			socket.setTimeout(timeoutMs);
+			socket.once('timeout', () => {
+				if (settled) {
+					return;
+				}
+				settled = true;
+				
+				cleanup();
+				reject(new Error('ECONNABORTED'));
+			});
+		}
+		socket.setEncoding(encoding);
+		socket.once('connect', () => {
+			socket.write(message);
 		});
-		socketClient.on('data', (data) => {
-			output += data.toString();
+		socket.on('data', (chunk: string) => {
+			output += chunk;
 		});
-		socketClient.on('close', () => {
-			socketClient.end();
-			clearTimeout(_tcpRequestTimers[id]);
-			delete _tcpRequestTimers[id];
-			return resolve(output);
+		socket.once('end', () => {
+			if (settled) {
+				return;
+			}
+			settled = true;
+			
+			cleanup();
+			resolve(output);
 		});
-		socketClient.on('error', (err) => {
-			socketClient.end();
-			clearTimeout(_tcpRequestTimers[id]);
-			delete _tcpRequestTimers[id];
-			return reject(err);
+		socket.once('error', (err) => {
+			if (settled) {
+				return;
+			}
+			settled = true;
+			
+			cleanup();
+			reject(err);
 		});
-
-		_tcpRequestTimers[id] = setTimeout(() => {
-			socketClient.end();
-
-			delete _tcpRequestTimers[id];
-			return reject(new Error('ECONNABORTED'));
-		}, timeout);
-	}));
+		socket.connect({ host: ipaddr, port });
+	});
 }

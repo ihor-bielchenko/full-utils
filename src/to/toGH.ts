@@ -1,36 +1,37 @@
 import { isNum } from '../is/isNum';
 import { toNum } from './toNum';
 
-export function toGH(value: any, unit = ''): number {
-	const unitLowerCase = unit.trim().toLowerCase();
-	const valueProcessed = toNum(value);
-	let output = 0;
+function normalizeUnit(u: string): string {
+	return String(u)
+		.trim()
+		.toLowerCase()
+		.replace(/\s+/g, '')
+		.replace(/(?:\/?s|hash(?:es)?)$/i, '');
+}
 
-	switch (unitLowerCase[0]) {
-		case 'h':
-			output = valueProcessed / 1000000000;
-			break;
-		case 'k':
-			output = valueProcessed / 1000000;
-			break;
-		case 'm':
-			output = valueProcessed / 1000;
-			break;
-		case 't':
-			output = valueProcessed * 1000;
-			break;
-		case 'p':
-			output = valueProcessed * 1000000;
-			break;
-		case 'e':
-			output = valueProcessed * 1000000000;
-			break;
-		default:
-			output = valueProcessed;
-			break;
+const FACTOR: Record<string, number> = {
+	h: 1e-9,
+	k: 1e-6,
+	m: 1e-3,
+	g: 1,
+	t: 1e3,
+	p: 1e6,
+	e: 1e9,
+};
+
+export function toGH(value: any, unit = ''): number {
+	const v = toNum(value);
+
+	if (!isNum(v)) {
+		return 0;
 	}
-	if (!isNum(output)) {
-		throw new Error(`In "toGH" function value "${valueProcessed}" with init "${unit}" in not valid.`);
+	const u = normalizeUnit(unit);
+	const c = u ? u[0] : 'g';
+	const factor = FACTOR[c] ?? 1;
+	const out = v * factor;
+
+	if (!isNum(out)) {
+		throw new Error(`toGH: result is not finite (value="${v}", unit="${u}")`);
 	}
-	return toNum(output);
+	return Object.is(out, -0) ? 0 : out;
 }

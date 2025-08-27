@@ -1,6 +1,6 @@
 {
 	"name": "full-utils",
-	"version": "0.0.7",
+	"version": "1.0.0",
 	"description": "A set of pure functions for all occasions.",
 	"author": "ihor-bielchenko",
 	"license": "MIT",
@@ -90,6 +90,6 @@
 	},
 	"dependencies": {
 		"date-fns": "^4.1.0",
-		"validator": "^13.15.0"
+		"validator": "^13.15.15"
 	}
 }

@@ -1,7 +1,6 @@
 import validator from 'validator';
+import { isStrFilled } from './isStrFilled';
 
-export function isEmail(value): boolean {
-	return validator.isEmail(value);
+export function isEmail(value: unknown): value is string {
+	return isStrFilled(value) && validator.isEmail(value);
 }
-
-

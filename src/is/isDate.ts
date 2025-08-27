@@ -1,12 +1,14 @@
 import { isStr } from './isStr';
 import { isNum } from './isNum';
 
-export function isDate(value): boolean {
+export function isDate(value: unknown): boolean {
+	if (value instanceof Date) {
+		return !Number.isNaN(value.getTime());
+	}
 	if (isStr(value) || isNum(value)) {
-		const valueProcessed = new Date(value);
+		const d = new Date(value as any);
 
-		return (valueProcessed instanceof Date && !Number.isNaN(valueProcessed));
+		return !Number.isNaN(d.getTime());
 	}
 	return false;
 }
-

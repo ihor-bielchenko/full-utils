@@ -1,10 +1,10 @@
 import { isStrFilled } from './isStrFilled';
 
-export function isStrOrderType(value): boolean {
+export function isStrOrderType(value: unknown): value is 'asc' | 'desc' {
 	if (!isStrFilled(value)) {
 		return false;
 	}
-	const valueProcessed = value.trim().toLowerCase();
-
-	return valueProcessed === 'asc' || valueProcessed === 'desc';
+	const normalized = value.trim().toLowerCase();
+	
+	return normalized === 'asc' || normalized === 'desc';
 }

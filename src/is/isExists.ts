@@ -1,5 +1,4 @@
 
-export function isExists(value): boolean {
-	return typeof value !== `undefined` && value !== null;
+export function isExists<T>(value: T | null | undefined): value is T {
+	return value !== null && value !== undefined;
 }
-

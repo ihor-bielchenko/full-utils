@@ -1,5 +1,5 @@
 import { isNum } from './isNum';
 
-export function isNumP(value): boolean {
-	return isNum(value) && Number(value) > 0;
+export function isNumP(value: unknown): value is number {
+	return isNum(value) && value > 0;
 }
