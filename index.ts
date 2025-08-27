@@ -36,6 +36,7 @@ import { toArrFuncArgs } from './src/to/toArrFuncArgs';
 import { toJSON } from './src/to/toJSON';
 import { toPhone } from './src/to/toPhone';
 import { toLower } from './src/to/toLower';
+import { toPoolName } from './src/to/toPoolName';
 import { netTCP } from './src/net/netTCP';
 
 export {
@@ -77,5 +78,6 @@ export {
 	toJSON,
 	toPhone,
 	toLower,
+	toPoolName,
 	netTCP,
 };
