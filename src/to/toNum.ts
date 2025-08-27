@@ -1,43 +1,52 @@
 import { isStrFilled } from '../is/isStrFilled';
 import { isNum } from '../is/isNum';
 
-export function toNum(value, fixed = 2) {
-	let valueSplit = [];
+const STRICT_RE = /^[+-]?(?:\d+|\d*\.\d+)$/;
+const PARSE_RE  = /^([+-]?)(\d*)(?:\.(\d+))?$/;
 
-	if (isStrFilled(value)) {
-		const valueProcessed = value.trim().replaceAll(`,`, `.`);
+export function toNum(value: unknown, fixed = 2, fallback = 0): number {
+	if (!Number.isFinite(fixed) || fixed < 0) {
+		fixed = 0;
+	}
+	fixed = Math.floor(fixed);
+	
+	let numStr: string | null = null;
 
-		if (valueProcessed) {
-			valueSplit = valueProcessed.split(`.`);
-		}
+	if (isNum(value)) {
+		numStr = String(value);
+	} 
+	else if (isStrFilled(value)) {
+		const raw = (value as string)
+			.trim()
+			.replace(/,/g, '.')
+			.replace(/\s+/g, '');
+		
+		numStr = raw;
 	}
-	else if (isNum(value)) {
-		valueSplit = String(value).split(`.`);
+	else {
+		return fallback;
 	}
-	else if (value) {
-		return 1;
+	if (!STRICT_RE.test(numStr)) {
+		return fallback;
 	}
-	if (valueSplit.length === 2) {
-		let i = 0,
-			fixedReady = 0,
-			collector = ``,
-			afterZero = false;
+	const m = PARSE_RE.exec(numStr);
+	
+	if (!m) {
+		return fallback;
+	}
+	let [ , sign, intPart, fracPart = '' ] = m;
 
-		while (i < valueSplit[1].length) {
-			if (valueSplit[1][i] !== `0`) {
-				afterZero = true;
-				fixedReady += 1;
-			}
-			if (afterZero && fixedReady > fixed) {
-				break;
-			}
-			collector += valueSplit[1][i];
-			i++;
-		}
-		return Number.parseFloat(([ valueSplit[0], collector ]).join(`.`));
+	if (intPart === '') {
+		intPart = '0';
 	}
-	else if (valueSplit.length === 1) {
-		return Number(valueSplit[0]);
-	}
-	return 0;
+	fracPart = (fixed === 0)
+		? ''
+		: fracPart.slice(0, fixed);
+
+	const normalized = sign + intPart + (fracPart ? '.' + fracPart : '');
+	const out = Number(normalized);
+
+	return Number.isFinite(out) 
+		? (Object.is(out, -0) ? 0 : out) 
+		: fallback;
 }

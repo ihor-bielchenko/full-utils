@@ -1,21 +1,26 @@
 import { isStrFilled } from '../is/isStrFilled';
 
-export function toBool(value): boolean {
-	if (isStrFilled(value)) {
-		const valueProcessed = value.trim().toLowerCase();
-
-		if (valueProcessed === 'true') {
+export function toBool(value: unknown): boolean {
+	if (typeof value === 'boolean') {
+		return value;
+	}
+	if (typeof value === 'number') {
+		if (value === 1) {
 			return true;
 		}
-		else if (valueProcessed === 'false') {
+		if (value === 0) {
 			return false;
 		}
 	}
-	else if (value === 1) {
-		return true;
+	if (isStrFilled(value)) {
+		const v = value.trim().toLowerCase();
+		
+		if (v === 'true' || v === '1' || v === 'yes') {
+			return true;
+		}
+		if (v === 'false' || v === '0' || v === 'no') {
+			return false;
+		}
 	}
-	else if (value === 0) {
-		return false;
-	}
-	throw new Error(`Value ${String(value)} is bad format.`);
+	throw new Error(`toBool: cannot convert value "${String(value)}" to boolean`);
 }

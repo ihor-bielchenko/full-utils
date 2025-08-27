@@ -1,14 +1,33 @@
+import { isStrFilled } from './isStrFilled';
+import { isNum } from './isNum';
 
-export function isPhone(value): boolean {
-	const valueProcessed = String(value);
-
-	if (valueProcessed[0] === '-'
-		|| (valueProcessed[0] === '+' && valueProcessed[1] === '-')) {
+export function isPhone(value: unknown): value is string {
+	if (!isStrFilled(value) 
+		&& !isNum(value)) {
 		return false;
 	}
-	return /(^[+]?)([0-9-]+$)/.test(valueProcessed) 
-		&& valueProcessed.length >= 3 
-		&& valueProcessed.length <= 20
-		&& Number(valueProcessed[valueProcessed.length - 1]) >= 0
-		&& valueProcessed.split('-').findIndex((item: string) => item === '') === -1;
+	const valueProcessed = String(value).trim();
+
+	if (valueProcessed.startsWith('-')) {
+		return false;
+	}
+	if ((valueProcessed.match(/\+/g) || []).length > 1) {
+		return false;
+	}
+	if (valueProcessed.includes('+') && !valueProcessed.startsWith('+')) {
+		return false;
+	}
+	if (!/^\+?[0-9-]+$/.test(valueProcessed)) {
+		return false;
+	}
+	if (valueProcessed.length < 3 || valueProcessed.length > 20) {
+		return false;
+	}
+	if (!/[0-9]$/.test(valueProcessed)) {
+		return false;
+	}
+	if (valueProcessed.includes('--')) {
+		return false;
+	}
+	return true;
 }

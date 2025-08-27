@@ -1,71 +1,161 @@
 import { isStrBool } from '../is/isStrBool';
-import { isBool } from '../is/isBool';
-import { isNum } from '../is/isNum';
+import { isStr } from '../is/isStr';
+import { fromJSON } from '../from/fromJSON';
 import { toBool } from './toBool';
+import { toNum } from './toNum';
 
-export function toArrFuncArgs(value: string): Array<any> {
-	if (value.startsWith(`[`) && value.endsWith(`]`)) {
-		value = value.slice(1, -1);
+type Quote = "'" | '"' | null;
+
+export function toArrFuncArgs(value: string): unknown[] {
+	if (!isStr(value)) {
+		return [value];
 	}
-	const result = [];
-	let buffer = ``,
-		i = 0,
-		depth = 0,
+	let src = value.trim();
+	
+	if (src === '') {
+		return [];
+	}
+	if (src.startsWith('[') && src.endsWith(']')) {
+		src = src.slice(1, -1).trim();
+		
+		if (src === '') {
+			return [];
+		}
+	}
+	let buf = '',
 		inQuote = false,
-		quoteChar = null;
+		quoteChar: Quote = null,
+		esc = false,
+		depthParen = 0,
+		depthBracket = 0,
+		depthBrace = 0;
 
-	while (i < value.length) {
-		const char = value[i];
+	const items: string[] = [];
+	const finalize = () => {
+		const trimmed = buf.trim();
+		
+		if (trimmed !== '') {
+			items.push(trimmed);
+		}
+		buf = '';
+	};
+
+	for (let i = 0; i < src.length; i++) {
+		const ch = src[i];
 
 		if (inQuote) {
-			buffer += char;
-				
-			if (char === quoteChar && value[i - 1] !== `\\`) {
-				inQuote = false;
+			buf += ch;
+
+			if (esc) { 
+				esc = false; 
+				continue; 
 			}
-		} 
-		else if (char === `'` || char === `"`) {
+			if (ch === '\\') { 
+				esc = true; 
+				continue; 
+			}
+			if (ch === quoteChar) {
+				inQuote = false;
+				quoteChar = null;
+			}
+			continue;
+		}
+		if (ch === '"' || ch === "'") {
 			inQuote = true;
-			quoteChar = char;
-			buffer += char;
-		} 
-		else if (char === `(`) {
-			depth++;
-			buffer += char;
-		} 
-		else if (char === `)`) {
-			depth--;
-			buffer += char;
-		} 
-		else if (char === `,` && depth === 0 && !inQuote) {
-			result.push(buffer.trim());
-			buffer = ``;
-		} 
-		else {
-			buffer += char;
+			quoteChar = ch as Quote;
+			buf += ch;
+			
+			continue;
 		}
-		i++;
+		if (ch === '(') { 
+			depthParen++; 
+			buf += ch; 
+
+			continue; 
+		}
+		if (ch === ')') { 
+			depthParen = Math.max(0, depthParen - 1); 
+			buf += ch; 
+			
+			continue; 
+		}
+		if (ch === '[') { 
+			depthBracket++; 
+			buf += ch; 
+			
+			continue; 
+		}
+		if (ch === ']') { 
+			depthBracket = Math.max(0, depthBracket - 1); 
+			buf += ch; 
+			
+			continue; 
+		}
+		if (ch === '{') { 
+			depthBrace++; 
+			buf += ch; 
+			
+			continue; 
+		}
+		if (ch === '}') { 
+			depthBrace = Math.max(0, depthBrace - 1); 
+			buf += ch; 
+
+			continue; 
+		}
+		if (ch === ',' && depthParen === 0 && depthBracket === 0 && depthBrace === 0) {
+			finalize();
+			
+			continue;
+		}
+		buf += ch;
 	}
-	if (buffer.trim()) {
-		result.push(buffer.trim());
+	if (buf.length) {
+		finalize();
 	}
-	return result.map((item) => {
-		if (item.startsWith(`$`) && item.includes(`(`) && item.endsWith(`)`)) {
-			return item;
+	return items.map((raw: string): unknown => {
+		if (raw.startsWith('$') && raw.includes('(') && raw.endsWith(')')) {
+			return raw;
 		}
-		if (isStrBool(item) || isBool(item)) {
-			return toBool(item);
-		}
-		if (item === `null`) {
+		if (raw === 'null') {
 			return null;
 		}
-		if (isNum(item)) {
-			return Number(item);
+		if (raw === 'undefined') {
+			return undefined;
 		}
-		if ((item.startsWith(`'`) && item.endsWith(`'`)) 
-			|| (item.startsWith(`"`) && item.endsWith(`"`))) {
-			return item.slice(1, -1);
+		if (isStrBool(raw)) {
+			return toBool(raw);
 		}
-		return item;
+		const n = toNum(raw as any);
+		
+		if (Number.isFinite(n)) {
+			return n;
+		}		
+		if (raw === 'Infinity') {
+			return Infinity;
+		}
+		if (raw === '-Infinity') {
+			return -Infinity;
+		}
+		const rawStr: string = String(raw || '');
+		const hasQuotes = rawStr.length >= 2
+			&& ((rawStr.startsWith("'") && rawStr.endsWith("'")) 
+				|| (rawStr.startsWith('"') && rawStr.endsWith('"')));
+
+		if (hasQuotes) {
+			return rawStr
+				.slice(1, -1)
+				.replace(/\\\\/g, '\\')
+				.replace(/\\'/g, "'")
+				.replace(/\\"/g, '"');
+		}
+		if ((rawStr.startsWith('{') && rawStr.endsWith('}')) || (rawStr.startsWith('[') && rawStr.endsWith(']'))) {
+			try {
+				return fromJSON(rawStr);
+			} 
+			catch {
+			}
+		}
+		return rawStr;
 	});
 }

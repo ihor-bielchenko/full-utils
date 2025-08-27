@@ -1,4 +1,4 @@
 
-export function isStr(value): boolean {
+export function isStr(value: unknown): value is string {
 	return typeof value === `string`;
 }

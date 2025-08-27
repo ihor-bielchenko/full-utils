@@ -1,4 +1,6 @@
-import { fromJSON } from './fromJSON';
+import { fromJSON } from './from/fromJSON';
+import { fromTimestamp } from './from/fromTimestamp';
+import { isArr } from './is/isArr';
 import { isArrFilled } from './is/isArrFilled';
 import { isBool } from './is/isBool';
 import { isDate } from './is/isDate';
@@ -31,11 +33,19 @@ import { toNum } from './to/toNum';
 import { toPortions } from './to/toPortions';
 import { toTimestamp } from './to/toTimestamp';
 import { toArrFuncArgs } from './to/toArrFuncArgs';
+<<<<<<< HEAD
 import { toPoolName } from './to/toPoolName';
+=======
+import { toJSON } from './to/toJSON';
+import { toPhone } from './to/toPhone';
+import { toLower } from './to/toLower';
+>>>>>>> develop
 import { netTCP } from './net/netTCP';
 
 export {
 	fromJSON,
+	fromTimestamp,
+	isArr,
 	isArrFilled,
 	isBool,
 	isDate,
@@ -68,6 +78,12 @@ export {
 	toPortions,
 	toTimestamp,
 	toArrFuncArgs,
+<<<<<<< HEAD
 	toPoolName,
+=======
+	toJSON,
+	toPhone,
+	toLower,
+>>>>>>> develop
 	netTCP,
 };

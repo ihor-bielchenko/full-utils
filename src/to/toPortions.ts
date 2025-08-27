@@ -1,12 +1,14 @@
 
-export function toPortions(value: Array<any>, portionLength: number, output: Array<Array<any>> = []): Array<Array<any>> {
-	const portion = value.splice(0, portionLength);
-
-	if (portion.length > 0) {
-		output.push(portion);
+export function toPortions<T>(arr: readonly T[], portionLength: number): T[][] {
+	if (!Number.isInteger(portionLength) || portionLength <= 0) {
+		return [];
 	}
-	if (value.length > 0) {
-		return toPortions([ ...value ], portionLength, output);
+	const out: T[][] = [];
+	let i = 0;
+	
+	while (i < arr.length) {
+		out.push(arr.slice(i, i + portionLength));
+		i += portionLength;
 	}
-	return output;
+	return out;
 }

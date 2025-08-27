@@ -1,9 +1,5 @@
 import { isStr } from './isStr';
 
-export function isVar(value): boolean {
-	return isStr(value)
-		&& /^[a-zA-Z0-9_]+$/.test(value) 
-		&& !(Number(value[0]) >= 0
-			|| Number(value[0]) < 0);
+export function isVar(value: unknown): value is string {
+	return isStr(value) && /^[A-Za-z_][A-Za-z0-9_]*$/.test(value);
 }
-

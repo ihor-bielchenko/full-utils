@@ -1,6 +1,12 @@
 import { isStr } from './isStr';
 
-export function isIp(value): boolean {
-	return isStr(value)
-		&& /^(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.(25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/.test(value);
+const IPV4_RE = /^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
+
+export function isIp(value: unknown): value is string {
+	if (!isStr(value)) {
+		return false;
+	}
+	const v = value.trim();
+	
+	return IPV4_RE.test(v);
 }
