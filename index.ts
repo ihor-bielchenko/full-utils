@@ -37,6 +37,9 @@ import { toJSON } from './src/to/toJSON';
 import { toPhone } from './src/to/toPhone';
 import { toLower } from './src/to/toLower';
 import { toPoolName } from './src/to/toPoolName';
+import { toTrim } from './src/to/toTrim';
+import { toNull } from './src/to/toNull';
+import { toUndefined } from './src/to/toUndefined';
 import { netTCP } from './src/net/netTCP';
 
 export {
@@ -79,5 +82,8 @@ export {
 	toPhone,
 	toLower,
 	toPoolName,
+	toTrim,
+	toNull,
+	toUndefined,
 	netTCP,
 };
