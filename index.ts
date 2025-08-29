@@ -32,6 +32,7 @@ import { toInetNtoa } from './src/to/toInetNtoa';
 import { toNum } from './src/to/toNum';
 import { toPortions } from './src/to/toPortions';
 import { toTimestamp } from './src/to/toTimestamp';
+import { toDateStr } from './src/to/toDateStr';
 import { toArrFuncArgs } from './src/to/toArrFuncArgs';
 import { toJSON } from './src/to/toJSON';
 import { toPhone } from './src/to/toPhone';
@@ -77,6 +78,7 @@ export {
 	toNum,
 	toPortions,
 	toTimestamp,
+	toDateStr,
 	toArrFuncArgs,
 	toJSON,
 	toPhone,

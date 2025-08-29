@@ -1,5 +1,5 @@
 
-export function toTimestamp(value: number = Date.now()): {
+export function toTimestamp(value: number): {
 	days: number;
 	hours: number;
 	minutes: number;
