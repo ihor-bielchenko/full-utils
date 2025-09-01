@@ -41,6 +41,7 @@ import { toPoolName } from './src/to/toPoolName';
 import { toTrim } from './src/to/toTrim';
 import { toNull } from './src/to/toNull';
 import { toUndefined } from './src/to/toUndefined';
+import { toSqlUpdateMany } from './src/to/toSqlUpdateMany';
 import { netTCP } from './src/net/netTCP';
 
 export {
@@ -87,5 +88,6 @@ export {
 	toTrim,
 	toNull,
 	toUndefined,
+	toSqlUpdateMany,
 	netTCP,
 };
