@@ -42,6 +42,7 @@ import { toTrim } from './to/toTrim';
 import { toNull } from './to/toNull';
 import { toUndefined } from './to/toUndefined';
 import { toSqlUpdateMany } from './to/toSqlUpdateMany';
+import { toRangeip } from './to/toRangeip';
 import { netTCP } from './net/netTCP';
 
 export {
@@ -89,5 +90,6 @@ export {
 	toNull,
 	toUndefined,
 	toSqlUpdateMany,
+	toRangeip,
 	netTCP,
 };
