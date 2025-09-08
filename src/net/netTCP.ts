@@ -1,4 +1,4 @@
-import net from 'net';
+import * as net from 'net';
 
 export interface NetTCPOptions {
 	port?: number;
