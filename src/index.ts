@@ -28,6 +28,7 @@ import { toBool } from './to/toBool';
 import { toCellDate } from './to/toCellDate';
 import { toGB } from './to/toGB';
 import { toGH } from './to/toGH';
+import { toH } from './to/toH';
 import { toInetAton } from './to/toInetAton';
 import { toInetNtoa } from './to/toInetNtoa';
 import { toNum } from './to/toNum';
@@ -77,6 +78,7 @@ export {
 	toCellDate,
 	toGB,
 	toGH,
+	toH,
 	toInetAton,
 	toInetNtoa,
 	toNum,
