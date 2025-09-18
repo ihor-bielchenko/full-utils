@@ -12,6 +12,7 @@ import { isMac } from './is/isMac';
 import { isNum } from './is/isNum';
 import { isNumFloat } from './is/isNumFloat';
 import { isNumN } from './is/isNumN';
+import { isNumNZ } from './is/isNumNZ';
 import { isNumP } from './is/isNumP';
 import { isNumPZ } from './is/isNumPZ';
 import { isObj } from './is/isObj';
@@ -60,6 +61,7 @@ export {
 	isNum,
 	isNumFloat,
 	isNumN,
+	isNumNZ,
 	isNumP,
 	isNumPZ,
 	isObj,
