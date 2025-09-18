@@ -1,26 +1,24 @@
+import { isBool } from '../is/isBool';
+import { isNumP } from '../is/isNumP';
+import { isNumNZ } from '../is/isNumNZ';
 import { isStrFilled } from '../is/isStrFilled';
 
 export function toBool(value: unknown): boolean {
-	if (typeof value === 'boolean') {
-		return value;
-	}
-	if (typeof value === 'number') {
-		if (value === 1) {
+	switch (true) {
+		case isBool(value):
+			return value;
+
+		case isNumP(value):
 			return true;
-		}
-		if (value === 0) {
+
+		case isNumNZ(value):
 			return false;
-		}
-	}
-	if (isStrFilled(value)) {
-		const v = value.trim().toLowerCase();
-		
-		if (v === 'true' || v === '1' || v === 'yes') {
+
+		case isStrFilled(value) && [ 'true', '1', 'yes', 'on' ].includes(value.trim().toLowerCase()):
 			return true;
-		}
-		if (v === 'false' || v === '0' || v === 'no') {
+
+		case isStrFilled(value) && [ 'false', '0', 'no', 'off' ].includes(value.trim().toLowerCase()):
 			return false;
-		}
 	}
-	throw new Error(`toBool: cannot convert value "${String(value)}" to boolean`);
+	return false;
 }
