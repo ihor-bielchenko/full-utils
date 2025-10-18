@@ -1,6 +1,6 @@
 {
 	"name": "full-utils",
-	"version": "1.0.11",
+	"version": "2.0.0",
 	"description": "A set of pure functions for all occasions.",
 	"author": "ihor-bielchenko",
 	"license": "MIT",
@@ -12,25 +12,71 @@
 		"url": "https://github.com/ihor-bielchenko/full-utils/issues"
 	},
 	"homepage": "https://github.com/ihor-bielchenko/full-utils#readme",
-	"main": "dist/index.js",
-	"types": "dist/index.d.ts",
+	"type": "module",
+	"main": "./dist/index.cjs",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": {
+			"browser": {
+				"import": "./dist/browser.mjs",
+				"require": "./dist/browser.cjs"
+			},
+			"import": "./dist/index.mjs",
+			"require": "./dist/index.cjs",
+			"default": "./dist/index.mjs"
+		},
+		"./node": {
+			"import": "./dist/node.mjs",
+			"require": "./dist/node.cjs"
+		},
+		"./net": {
+			"node": {
+				"import": "./dist/net/index.mjs",
+				"require": "./dist/net/index.cjs"
+			}
+		}
+	},
+	"browser": {
+		"./dist/net/index.mjs": false,
+		"net": false,
+		"fs": false,
+		"tls": false
+	},
+	"sideEffects": false,
 	"files": [
 		"dist"
 	],
 	"keywords": [
-		"date",
-		"data",
-		"var",
-		"value",
-		"type",
-		"check",
-		"if",
-		"is",
-		"to",
+		"typescript",
+		"javascript",
+		"utils",
+		"helpers",
+		"toolkit",
+		"library",
+		"validation",
+		"validator",
 		"format",
-		"convert"
-	],
-	"dependencies": {
-		"validator": "^13.15.15"
-	}
+		"formatter",
+		"converter",
+		"parsing",
+		"data",
+		"string",
+		"number",
+		"boolean",
+		"object",
+		"array",
+		"datetime",
+		"network",
+		"ip",
+		"mac",
+		"cidr",
+		"url",
+		"json",
+		"safe",
+		"lightweight",
+		"modular",
+		"utility-library",
+		"full-utils"
+	]
 }
