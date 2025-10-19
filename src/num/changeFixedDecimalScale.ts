@@ -1,4 +1,4 @@
-import type { FixedDecimal } from './types';
+import type { FixedDecimal } from '../index';
 
 /**
  * Adjusts the **scale** (i.e., number of fractional digits) of a {@link FixedDecimal}
@@ -16,6 +16,8 @@ import type { FixedDecimal } from './types';
  * digits of precision) **without changing** `digitsInteger`.  
  * When `scaleDelta < 0`, it *reduces* the scale by multiplying `digitsInteger`
  * to preserve the same actual numeric value.
+ * 
+ * O(1) time and space, except for the BigInt multiplication when `scaleDelta < 0`.
  *
  * @param value - The {@link FixedDecimal} to adjust.  
  * Should contain:
@@ -53,10 +55,7 @@ import type { FixedDecimal } from './types';
  * const same = changeFixedDecimalScale(num, 0);
  * // same === { sign: 1, digitsInteger: 12345n, scale: 2 }
  * ```
- *
- * @complexity
- * O(1) time and space, except for the BigInt multiplication when `scaleDelta < 0`.
- *
+ * 
  * @since 2.0.0
  */
 export function changeFixedDecimalScale(value: FixedDecimal, scaleDelta: number): FixedDecimal {

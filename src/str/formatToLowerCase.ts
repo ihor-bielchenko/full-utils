@@ -1,6 +1,8 @@
-import { isStrFilled } from '../is/isStrFilled';
-import { isStr } from '../is/isStr';
-import { formatToTrim } from './formatToTrim';
+import { 
+	isStrFilled,
+	isStr,
+	formatToTrim, 
+} from '../index';
 
 /**
  * Converts any given string-like value into a lower-cased, trimmed string.
@@ -62,7 +64,7 @@ import { formatToTrim } from './formatToTrim';
  *
  * @category String
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function formatToLowerCase(value?: unknown): string {
 	if (!isStr(value)) {

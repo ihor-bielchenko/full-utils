@@ -1,5 +1,8 @@
-import { isObj } from '../is/isObj';
-import { isArr } from '../is/isArr';
+import { 
+	isObj,
+	isArr, 
+	jsonDecode,
+} from '../index';
 
 /**
  * Safely serializes a plain object or array into a JSON string.
@@ -14,6 +17,11 @@ import { isArr } from '../is/isArr';
  *
  * The function is thus ideal for safe logging, diagnostics, or best-effort
  * serialization where throwing is undesirable.
+ * 
+ * - The output is always a valid JSON string (or empty string on failure).
+ * - Use {@link jsonDecode} to reverse the process and safely parse it back.
+ * - BigInt values are **not supported** by `JSON.stringify` — they will trigger
+ *   a caught error, resulting in an empty string.
  *
  * @param value - Any value to encode. Only arrays or plain objects will be serialized;
  *                other types return an empty string.
@@ -46,18 +54,12 @@ import { isArr } from '../is/isArr';
  *
  * @throws Never throws — all exceptions from `JSON.stringify` are caught internally.
  *
- * @notes
- * - The output is always a valid JSON string (or empty string on failure).
- * - Use {@link jsonDecode} to reverse the process and safely parse it back.
- * - BigInt values are **not supported** by `JSON.stringify` — they will trigger
- *   a caught error, resulting in an empty string.
- *
  * @see {@link jsonDecode} — performs the inverse operation with safe parsing and normalization.
  * @see {@link JSON.stringify} — the native method used under the hood.
  *
  * @public
  * @category JSON
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function jsonEncode(value: unknown): string {
 	try {

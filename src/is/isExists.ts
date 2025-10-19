@@ -1,4 +1,3 @@
-
 /**
  * Checks whether a value **exists** — i.e. is neither `null` nor `undefined`.
  *
@@ -64,7 +63,7 @@
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isExists<T>(value: T | null | undefined): value is T {
 	return value !== null && value !== undefined;

@@ -1,4 +1,4 @@
-import { isStrFilled } from '../is/isStrFilled';
+import { isStrFilled } from '../index';
 
 const HAS_SCHEME = /^[a-zA-Z][a-zA-Z\d+\-.]*:/;
 
@@ -81,7 +81,7 @@ const HAS_SCHEME = /^[a-zA-Z][a-zA-Z\d+\-.]*:/;
  *
  * @category Network
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function extractHost(value: string = ''): string {
 	if (!isStrFilled(value)) {

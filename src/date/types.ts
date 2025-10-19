@@ -1,3 +1,7 @@
+import { 
+	secondsToParts,
+	partsToSeconds, 
+} from '../index';
 
 /**
  * Represents a human-readable breakdown of a time duration
@@ -50,7 +54,7 @@
  *
  * @public
  * @category Date & Time
- * @since 1.0.0
+ * @since 2.0.0
  */
 export interface TimeParts {
 	days: number;

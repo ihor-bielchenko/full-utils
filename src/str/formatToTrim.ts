@@ -1,4 +1,4 @@
-import { isStr } from '../is/isStr';
+import { isStr } from '../index';
 
 
 /**
@@ -81,7 +81,7 @@ import { isStr } from '../is/isStr';
  *
  * @category String
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function formatToTrim(value: unknown): string {
 	return String(isStr(value) ? value.trim().normalize('NFKC').replace(/[\u200B-\u200D\uFEFF]/g, '') : '');	

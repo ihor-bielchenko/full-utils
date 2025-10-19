@@ -1,4 +1,3 @@
-
 /**
  * Checks whether a given value is an array.
  *
@@ -55,7 +54,7 @@
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isArr<T = unknown>(value: unknown): value is readonly [T, ...T[]] {
 	return Array.isArray(value);

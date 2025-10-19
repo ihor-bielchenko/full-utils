@@ -1,5 +1,7 @@
-import { isStr } from './isStr';
-import { isNum } from './isNum';
+import { 
+	isStr,
+	isNum, 
+} from '../index';
 
 /**
  * Checks whether a value represents a **valid JavaScript date**.
@@ -74,7 +76,7 @@ import { isNum } from './isNum';
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isDate(value: unknown): boolean {
 	if (value instanceof Date) {

@@ -1,6 +1,8 @@
-import { fixedDecimalToNum } from './fixedDecimalToNum';
-import { parseToFixedDecimal } from './parseToFixedDecimal';
-import { roundFixedDecimal } from './roundFixedDecimal';
+import { 
+	fixedDecimalToNum,
+	parseToFixedDecimal,
+	roundFixedDecimal, 
+} from '../index';
 
 /**
  * Converts an arbitrary numeric input to a JavaScript `number`, optionally rounding

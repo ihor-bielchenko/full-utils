@@ -1,4 +1,3 @@
-
 /**
  * Checks whether a given value is a boolean (`true` or `false`).
  *
@@ -49,7 +48,7 @@
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isBool(value: unknown): value is boolean {
 	return typeof value === 'boolean';

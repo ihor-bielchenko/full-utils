@@ -1,4 +1,4 @@
-import { isStr } from './isStr';
+import { isStr } from '../index';
 
 /**
  * Checks whether a given value is a **valid variable-like identifier**.
@@ -76,7 +76,7 @@ import { isStr } from './isStr';
  *
  * @category Validation
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isVar(value: unknown): value is string {
 	return isStr(value) && /^[A-Za-z_][A-Za-z0-9_]*$/.test(value);

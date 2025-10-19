@@ -1,8 +1,10 @@
-import { isStrBool } from '../is/isStrBool';
-import { isStr } from '../is/isStr';
-import { jsonDecode } from '../json/jsonDecode';
-import { formatToBool } from '../bool/formatToBool';
-import { formatToNum } from '../num/formatToNum';
+import { 
+	isStrBool,
+	isStr, 
+	jsonDecode,
+	formatToBool,
+	formatToNum,
+} from '../index';
 
 /**
  * A narrow union describing which quoting characters are recognized by the parser.
@@ -13,7 +15,7 @@ import { formatToNum } from '../num/formatToNum';
  * and typical backslash escapes are honored (e.g., `\"`, `\'`, `\\`).
  *
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 type Quote = "'" | '"' | null;
 
@@ -123,7 +125,7 @@ type Quote = "'" | '"' | null;
  * @see jsonDecode
  *
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function formatStrToFuncArgs(value: string): unknown[] {
 	if (!isStr(value)) {

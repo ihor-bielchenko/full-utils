@@ -58,7 +58,7 @@
  *
  * @category Array
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function splitArrToPortions<T>(arr: readonly T[], portionLength: number): T[][] {
 	if (!Number.isInteger(portionLength) || portionLength <= 0) {

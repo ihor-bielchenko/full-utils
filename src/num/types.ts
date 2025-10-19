@@ -1,3 +1,10 @@
+import {
+	parseToFixedDecimal,
+	roundFixedDecimal,
+	fixedDecimalToStr,
+	fixedDecimalToNum,
+} from '../index';
+
 
 /**
  * Represents a **fixed-precision decimal number** using exact integer arithmetic.

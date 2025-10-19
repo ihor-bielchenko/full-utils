@@ -1,5 +1,7 @@
-import { isNum } from '../is/isNum';
-import { formatToNum } from '../num/formatToNum';
+import { 
+	isNum,
+	formatToNum, 
+} from '../index';
 import { normalizeUnit } from './normalizeUnit';
 
 const FACTOR: Record<string, number> = {
@@ -98,7 +100,7 @@ const FACTOR: Record<string, number> = {
  *
  * @category Conversion
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function toGH(value: any, unit = ''): number {
 	const v = formatToNum(value);

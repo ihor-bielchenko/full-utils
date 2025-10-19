@@ -1,5 +1,5 @@
-import type { FixedDecimal } from './types';
-import { normalizeToDecimalComponents } from './normalizeToDecimalComponents';
+import type { FixedDecimal } from '../index';
+import { normalizeToDecimalComponents } from '../index';
 
 /**
  * Parses any numeric input (`number`, `bigint`, or `string`) into an exact {@link FixedDecimal}

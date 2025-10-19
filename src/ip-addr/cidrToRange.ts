@@ -1,5 +1,7 @@
-import { parseIPv4 } from './parseIPv4';
-import { toIPv4 } from './toIPv4';
+import { 
+	parseIPv4,
+	toIPv4, 
+} from '../index';
 
 /**
  * Converts a CIDR block into its inclusive start/end IPv4 addresses.

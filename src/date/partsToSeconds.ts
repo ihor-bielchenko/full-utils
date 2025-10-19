@@ -1,4 +1,5 @@
-import type { TimeParts } from './types';
+import type { TimeParts } from '../index';
+import { secondsToParts } from '../index';
 
 /**
  * Converts a partial {@link TimeParts} structure (days, hours, minutes, seconds)
@@ -18,6 +19,11 @@ import type { TimeParts } from './types';
  * - 1 day = 86 400 seconds  
  * - 1 hour = 3 600 seconds  
  * - 1 minute = 60 seconds
+ * 
+ * - Fractional or negative numbers are accepted and processed arithmetically.
+ *   Example: `{ minutes: 1.5 }` → `90`; `{ hours: -1 }` → `-3600`.
+ * - The function performs no validation; it assumes numeric input.
+ *   TypeScript typing (`number`) ensures intended usage.
  *
  * @param parts - A partial object containing any subset of time fields.
  * Missing values default to zero.
@@ -40,17 +46,11 @@ import type { TimeParts } from './types';
  *
  * @throws Never throws.
  *
- * @notes
- * - Fractional or negative numbers are accepted and processed arithmetically.
- *   Example: `{ minutes: 1.5 }` → `90`; `{ hours: -1 }` → `-3600`.
- * - The function performs no validation; it assumes numeric input.
- *   TypeScript typing (`number`) ensures intended usage.
- *
  * @see {@link secondsToParts} — the inverse operation that expands seconds back into components.
  *
  * @public
  * @category Date & Time
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function partsToSeconds(parts: {
 	days?: number;

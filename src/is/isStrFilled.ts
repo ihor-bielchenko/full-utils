@@ -1,4 +1,4 @@
-import { isStr } from './isStr';
+import { isStr } from '../index';
 
 /**
  * Checks whether a given value is a **non-empty string** (not just whitespace).
@@ -70,7 +70,7 @@ import { isStr } from './isStr';
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isStrFilled(value: unknown): value is string {
 	return isStr(value) && value.trim().length > 0;

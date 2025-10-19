@@ -1,4 +1,3 @@
-
 /**
  * Checks whether a given value is a **finite number**.
  *
@@ -68,7 +67,7 @@
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isNum(value: unknown): value is number {
 	return (typeof value === 'number') && Number.isFinite(value);

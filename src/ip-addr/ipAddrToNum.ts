@@ -1,3 +1,7 @@
+import {
+	numToIpAddr,
+	parseIPv4,
+} from '../index';
 
 /**
  * Converts a dotted-decimal IPv4 address string (e.g. `"192.168.0.1"`)
@@ -17,6 +21,11 @@
  * - performing numeric range comparisons (e.g., IP ranges, CIDR checks);
  * - storing IPv4 values compactly in binary structures or databases;
  * - bitwise operations such as masking and subnet arithmetic.
+ * 
+ * - The conversion uses a {@link DataView} and explicit byte writes
+ *   to guarantee consistent big-endian behavior across platforms.
+ * - The output number is safe for 32-bit unsigned arithmetic via `>>> 0`.
+ * - If you need the inverse operation, see {@link numToIpAddr}.
  *
  * @param ip - The IPv4 address in dotted-quad string form.
  *
@@ -46,18 +55,12 @@
  * - The input does not contain exactly four parts separated by dots.
  * - Any octet is not an integer between 0 and 255 inclusive.
  *
- * @notes
- * - The conversion uses a {@link DataView} and explicit byte writes
- *   to guarantee consistent big-endian behavior across platforms.
- * - The output number is safe for 32-bit unsigned arithmetic via `>>> 0`.
- * - If you need the inverse operation, see {@link numToIpAddr}.
- *
  * @see {@link numToIpAddr} — converts a 32-bit integer back to an IPv4 string.
  * @see {@link parseIPv4} — similar numeric parser using bitwise operations.
  *
  * @public
  * @category Network & IP
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function ipAddrToNum(ip: string): number {
 	const parts = ip.split('.').map(p => Number(p));
