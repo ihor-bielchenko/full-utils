@@ -1,2 +1,2 @@
 # full-utils
-## A set of pure functions for all occasions.
+## Сomprehensive collection of pure, zero-dependency functions for everyday JavaScript and TypeScript development. It provides strongly typed, consistent, and lightweight utilities for working with strings, numbers, dates, IP addresses, JSON, validation, and formatting — designed to be used in both Node.js and browser environments.
