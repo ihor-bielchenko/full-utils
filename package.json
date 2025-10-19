@@ -1,7 +1,7 @@
 {
 	"name": "full-utils",
 	"version": "2.0.0",
-	"description": "A set of pure functions for all occasions.",
+	"description": "Сomprehensive collection of pure, zero-dependency functions for everyday JavaScript and TypeScript development.",
 	"author": "ihor-bielchenko",
 	"license": "MIT",
 	"repository": {
