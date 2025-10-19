@@ -1,8 +1,13 @@
+import {
+	rangeIPv4,
+	rangeIPv4ToArr,
+} from '../index';
+
 /**
  * Options that control how IPv4 ranges are iterated and materialized.
  *
  * @remarks
- * These options are primarily consumed by {@link rangeIPv4} and {@link rangeIPv4ToArray}.
+ * These options are primarily consumed by {@link rangeIPv4} and {@link rangeIPv4ToArr}.
  * They let you include/exclude the network and broadcast addresses when the input
  * is a CIDR block, and limit the maximum number of items when materializing to an array.
  *
@@ -15,7 +20,7 @@ export interface RangeIPv4Options {
 	 * Hard cap on the number of elements to materialize into a returned array.
 	 *
 	 * @remarks
-	 * This option is **only** consulted by {@link rangeIPv4ToArray}. It prevents
+	 * This option is **only** consulted by {@link rangeIPv4ToArr}. It prevents
 	 * accidentally allocating huge arrays when the supplied range is very large
 	 * (e.g. `0.0.0.0/0` contains 4,294,967,296 addresses).
 	 *
@@ -25,7 +30,7 @@ export interface RangeIPv4Options {
 	 * @example
 	 * ```ts
 	 * // Will throw because /16 has 65,536 addresses (> 10_000)
-	 * rangeIPv4ToArray('10.0.0.0/16', undefined, { limit: 10_000 })
+	 * rangeIPv4ToArr('10.0.0.0/16', undefined, { limit: 10_000 })
 	 * ```
 	 */
 	limit?: number;

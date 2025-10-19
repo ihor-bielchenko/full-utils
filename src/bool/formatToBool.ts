@@ -1,7 +1,9 @@
-import { isBool } from '../is/isBool';
-import { isNumP } from '../is/isNumP';
-import { isNumNZ } from '../is/isNumNZ';
-import { isStrFilled } from '../is/isStrFilled';
+import { 
+	isBool,
+	isNumP, 
+	isNumNZ,
+	isStrFilled,
+} from '../index';
 
 /**
  * Converts any given value into a normalized boolean (`true` / `false`).
@@ -93,7 +95,7 @@ import { isStrFilled } from '../is/isStrFilled';
  *
  * @category Conversion
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function formatToBool(value: unknown): boolean {
 	switch (true) {

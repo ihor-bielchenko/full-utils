@@ -1,4 +1,3 @@
-
 /**
  * Floors a given {@link Date} object down to the nearest time interval in minutes.
  *
@@ -15,6 +14,9 @@
  *
  * The step is automatically clamped to the range **1 – 60 minutes** to prevent
  * invalid or nonsensical values.
+ * 
+ * The function allocates a single new `Date` object.  
+ * It is safe for high-frequency use in real-time systems and event batching.
  *
  * @param everyMinutes - The step interval (in minutes) used for rounding down.
  * Must be a positive finite number.  
@@ -50,16 +52,12 @@
  *
  * @throws Never throws — invalid step values are automatically normalized.
  *
- * @performance
- * The function allocates a single new `Date` object.  
- * It is safe for high-frequency use in real-time systems and event batching.
- *
  * @see {@link Date#setMinutes} for the underlying mutation logic.
  * @see {@link Date#getMinutes} for how minutes are extracted from a Date.
  *
  * @public
  * @category Date & Time
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function floorDateToMinutes(everyMinutes = 1, date = new Date()): Date {
 	const step = Math.min(60, Math.max(1, Math.trunc(Math.abs(everyMinutes))));

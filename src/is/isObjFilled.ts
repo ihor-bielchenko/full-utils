@@ -1,4 +1,4 @@
-import { isObj } from './isObj';
+import { isObj } from '../index';
 
 /**
  * Checks whether a given value is a **non-empty plain object**.
@@ -65,7 +65,7 @@ import { isObj } from './isObj';
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isObjFilled(value: unknown): value is Record<string, unknown> {
 	return isObj(value) && Object.keys(value).length > 0;

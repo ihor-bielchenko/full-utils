@@ -1,4 +1,5 @@
-import type { TimeParts } from './types';
+import type { TimeParts } from '../index';
+import { partsToSeconds } from '../index';
 
 /**
  * Decomposes a total number of seconds into discrete time components:
@@ -21,6 +22,9 @@ import type { TimeParts } from './types';
  * Any fractional part of the input (e.g., `12.75`) is truncated (floored) to the
  * nearest lower whole second.  
  * Negative or non-finite inputs are considered invalid and will throw an error.
+ * 
+ * - Uses only a few arithmetic operations and is **O(1)**.
+ * - Safe for real-time conversions or high-frequency usage (e.g., monitoring dashboards).
  *
  * @param total - Total duration in seconds.  
  * Must be a **finite, non-negative number**.
@@ -55,16 +59,12 @@ import type { TimeParts } from './types';
  * @throws {Error}
  * Thrown when `total` is not a finite, non-negative number.
  *
- * @performance
- * - Uses only a few arithmetic operations and is **O(1)**.
- * - Safe for real-time conversions or high-frequency usage (e.g., monitoring dashboards).
- *
  * @see {@link partsToSeconds} — the complementary function that aggregates components into seconds.
  * @see {@link TimeParts} — the return type describing the breakdown of time.
  *
  * @public
  * @category Date & Time
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function secondsToParts(total: number): TimeParts {
 	if (!Number.isFinite(total) || total < 0) {

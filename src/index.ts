@@ -18,6 +18,7 @@ export * from './ip-addr/rangeIPv4';
 export * from './ip-addr/rangeIPv4ToArr';
 export * from './ip-addr/toIPv4';
 
+export type * from './is/types';
 export * from './is/isArr';
 export * from './is/isArrFilled';
 export * from './is/isBool';
@@ -43,6 +44,9 @@ export * from './is/isStrFilled';
 export * from './is/isStrAscDesc';
 export * from './is/isVar';
 
+export type * from './json/types';
+export * from './json/parseStringLike';
+export * from './json/tryParseJSON';
 export * from './json/jsonDecode';
 export * from './json/jsonEncode';
 

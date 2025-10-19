@@ -1,13 +1,5 @@
-import { isStr } from './isStr';
-
-interface PasswordOptions {
-	minLength?: number;
-	maxLength?: number;
-	requireUppercase?: boolean;
-	requireLowercase?: boolean;
-	requireDigit?: boolean;
-	requireSpecial?: boolean;
-}
+import type { PasswordOptions } from '../index';
+import { isStr } from '../index';
 
 /**
  * Validates whether a string meets configurable **password strength requirements**.
@@ -101,7 +93,7 @@ interface PasswordOptions {
  *
  * @category Validation
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isPassword(
 	value: unknown,

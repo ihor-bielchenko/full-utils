@@ -1,4 +1,4 @@
-import { convertExponentialToParts } from './convertExponentialToParts';
+import { convertExponentialToParts } from '../index';
 
 /**
  * Normalizes an arbitrary numeric input into sign, integer, and fractional string parts

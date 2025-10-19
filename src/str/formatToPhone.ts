@@ -1,5 +1,7 @@
-import { isStr } from '../is/isStr';
-import { formatToTrim } from './formatToTrim';
+import { 
+	isStr,
+	formatToTrim, 
+} from '../index';
 
 /**
  * Normalizes and validates a phone number into international format (`E.164` style).
@@ -96,7 +98,7 @@ import { formatToTrim } from './formatToTrim';
  *
  * @category String
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function formatToPhone(value?: unknown, defaultCountry = '+7'): string | null {
 	if (!isStr(value)) {

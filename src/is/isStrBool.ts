@@ -1,4 +1,4 @@
-import { isStrFilled } from './isStrFilled';
+import { isStrFilled } from '../index';
 
 /**
  * Checks whether a given value is a **string representation of a boolean** — `"true"` or `"false"`.
@@ -72,7 +72,7 @@ import { isStrFilled } from './isStrFilled';
  *
  * @category Validation
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isStrBool(value: unknown): value is string {
 	if (!isStrFilled(value)) {

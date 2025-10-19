@@ -1,5 +1,8 @@
-import { isStr } from '../is/isStr';
-import { formatToTrim } from './formatToTrim';
+import { 
+	isStr,
+	formatToTrim,
+	formatToNull, 
+} from '../index';
 
 /**
  * Converts `null` or empty (whitespace-only) strings into `undefined`.
@@ -79,7 +82,7 @@ import { formatToTrim } from './formatToTrim';
  *
  * @category String
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function formatToUndefined(value: unknown) {
 	return ((isStr(value) && formatToTrim(value) === '') || value === null) ? undefined : value

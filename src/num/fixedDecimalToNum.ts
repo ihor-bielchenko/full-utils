@@ -1,5 +1,5 @@
-import type { FixedDecimal } from './types';
-import { fixedDecimalToStr } from './fixedDecimalToStr';
+import type { FixedDecimal } from '../index';
+import { fixedDecimalToStr } from '../index';
 
 /**
  * Converts a {@link FixedDecimal} — an exact decimal representation —
@@ -11,6 +11,9 @@ import { fixedDecimalToStr } from './fixedDecimalToStr';
  * It internally calls {@link fixedDecimalToStr} to produce a normalized
  * string such as `"-123.4567"` and then passes it to the built-in
  * `Number()` constructor.
+ * 
+ * O(n) relative to the number of digits in `digitsInteger`
+ * (due to string creation in {@link fixedDecimalToStr}).
  *
  * @param value - The {@link FixedDecimal} instance to convert.
  * Must contain:
@@ -46,10 +49,6 @@ import { fixedDecimalToStr } from './fixedDecimalToStr';
  *
  * @see fixedDecimalToStr — for the exact string representation
  * @see https://developer.mozilla.org/docs/Web/JavaScript/Reference/Global_Objects/Number#precision JavaScript number precision
- *
- * @complexity
- * O(n) relative to the number of digits in `digitsInteger`
- * (due to string creation in {@link fixedDecimalToStr}).
  *
  * @since 2.0.0
  */

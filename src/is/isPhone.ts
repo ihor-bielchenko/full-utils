@@ -1,5 +1,7 @@
-import { isStrFilled } from './isStrFilled';
-import { isNum } from './isNum';
+import { 
+	isStrFilled,
+	isNum, 
+} from '../index';
 
 /**
  * Checks whether a given value is a **valid phone number** in a generic international format.
@@ -92,7 +94,7 @@ import { isNum } from './isNum';
  *
  * @category Validation
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isPhone(value: unknown): value is string {
 	if (!isStrFilled(value) 

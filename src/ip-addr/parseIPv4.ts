@@ -1,5 +1,7 @@
-import { isStr } from '../is/isStr';
-import { formatToTrim } from '../str/formatToTrim';
+import { 
+	isStr,
+	formatToTrim, 
+} from '../index';
 
 /**
  * Parses a dotted-quad IPv4 string (e.g. `"192.168.0.1"`) into a 32-bit unsigned integer.

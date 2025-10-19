@@ -1,8 +1,12 @@
-import type { RangeIPv4Options } from './types';
-import { cidrToRange } from './cidrToRange';
-import { parseIPv4 } from './parseIPv4';
-import { toIPv4 } from './toIPv4';
+import type { RangeIPv4Options } from '../index';
+import { 
+	cidrToRange,
+	parseIPv4,
+	toIPv4, 
+	rangeIPv4ToArr,
+} from '../index';
 
+function rangeIPv4(from: string, to?: string): Generator<string>;
 /**
  * Creates a lazy generator over an inclusive IPv4 range.
  *
@@ -25,15 +29,18 @@ import { toIPv4 } from './toIPv4';
  *
  * The iteration is inclusive of both endpoints and is safe around the upper
  * bound: if the current value is `0xFFFFFFFF`, the generator yields it once and terminates.
+ * 
+ * This is a lazy generator: it does **not** allocate the entire range up-front,
+ * making it suitable for very large ranges (iterate/stream/process on the fly).
+ * If you need a materialized array, consider {@link rangeIPv4ToArr} but mind its `limit`.
  *
  * @overload
  * @param from - A CIDR string (e.g. `"10.0.0.0/8"`). If this overload is used, `to` must be `undefined`.
- * @returns A generator of dotted-quad IPv4 strings.
  *
  * @overload
  * @param from - Starting IPv4 address in dotted-quad form.
  * @param to - Optional ending IPv4 address in dotted-quad form. If omitted or empty, the range ends at `A.B.C.255`.
- * @param opts - Iteration options (see {@link RangeIPv4Options}).
+ * @param opts - Iteration options.
  * @returns A generator of dotted-quad IPv4 strings.
  *
  * @param from - See overloads.
@@ -63,18 +70,12 @@ import { toIPv4 } from './toIPv4';
  * - If `to` is supplied and is not a valid IPv4 (in non-CIDR mode).
  * - If `from` is not a valid CIDR in CIDR mode.
  *
- * @performance
- * This is a lazy generator: it does **not** allocate the entire range up-front,
- * making it suitable for very large ranges (iterate/stream/process on the fly).
- * If you need a materialized array, consider {@link rangeIPv4ToArray} but mind its `limit`.
- *
- * @see {@link cidrToRange} to convert a CIDR to `[start,end]`.
- * @see {@link rangeIPv4ToArray} to materialize a range into an array with a safe limit.
+ * @see {@link cidrToRange} to convert a CIDR to `[ start, end ]`.
+ * @see {@link rangeIPv4ToArr} to materialize a range into an array with a safe limit.
  * @public
  * @category IPv4
  * @since 2.0.0
  */
-function rangeIPv4(from: string, to?: string): Generator<string>;
 function rangeIPv4(from: string, to: string | undefined, opts?: RangeIPv4Options): Generator<string>;
 
 function* rangeIPv4(from: string, to?: string, opts: RangeIPv4Options = {}): Generator<string> {

@@ -1,10 +1,12 @@
 import type { 
 	NetTCPOptions,
 	TcpError, 
-} from './types';
-import { isStrFilled } from '../is/isStrFilled';
-import { isNumP } from '../is/isNumP';
-import { isFunc } from '../is/isFunc';
+} from '../node';
+import { 
+	isStrFilled,
+	isNumP,
+	isFunc, 
+} from '../index';
 import { err } from './err';
 
 let netMod: any = null;
@@ -15,14 +17,14 @@ let netMod: any = null;
  * @param message - The request body to send. If `lineTerminator` is set, it is appended automatically.
  * @param host - Hostname or IP address to connect to.
  * @param options - Behavior and safety knobs for the connection, timeouts, encoding, and buffering.
- * @param options.port - Remote TCP port. {@defaultValue 4028}
- * @param options.timeoutMs - Idle timeout after connect/read in milliseconds. {@defaultValue 0}
+ * @param options.port - Remote TCP port. Default: 4028}
+ * @param options.timeoutMs - Idle timeout after connect/read in milliseconds. Default: 0}
  * @param options.signal - AbortSignal for cooperative cancellation.
- * @param options.maxBytes - Maximum response size in bytes; 0 means unlimited. {@defaultValue 0}
- * @param options.halfCloseAfterWrite - Call `socket.end()` after writing the request. {@defaultValue false}
- * @param options.lineTerminator - Optional `'\n'` / `'\r\n'` suffix to append. {@defaultValue ''}
- * @param options.connectTimeoutMs - Timeout for establishing the connection. {@defaultValue 0}
- * @param options.encoding - `'utf8'` or `'utf-8'` used for I/O. {@defaultValue 'utf8'}
+ * @param options.maxBytes - Maximum response size in bytes; 0 means unlimited. Default: 0}
+ * @param options.halfCloseAfterWrite - Call `socket.end()` after writing the request. Default: false}
+ * @param options.lineTerminator - Optional `'\n'` / `'\r\n'` suffix to append. Default: ''}
+ * @param options.connectTimeoutMs - Timeout for establishing the connection. Default: 0}
+ * @param options.encoding - `'utf8'` or `'utf-8'` used for I/O. Default: 'utf8'}
  *
  * @returns A promise that resolves to the full response string (decoded using `encoding`).
  *

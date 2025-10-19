@@ -1,4 +1,4 @@
-import type { FixedDecimal } from './types';
+import type { FixedDecimal } from '../index';
 
 /**
  * Converts a {@link FixedDecimal} — an exact, integer-based decimal structure —
@@ -15,6 +15,8 @@ import type { FixedDecimal } from './types';
  * 3. If `scale` is positive:
  *    - Pads with leading zeros when the number of digits is smaller than `scale`.
  *    - Otherwise, splits at the appropriate boundary between integer and fractional parts.
+ * 
+ * O(n) where `n` is the number of digits in `digitsInteger.toString()`.
  *
  * @param value - The {@link FixedDecimal} object:
  *   - `sign`: `1` for positive or `-1` for negative numbers.
@@ -53,9 +55,6 @@ import type { FixedDecimal } from './types';
  *
  * @see changeFixedDecimalScale — for adjusting the scale value safely
  * @see fixedDecimalToNum — for converting to a JavaScript number
- *
- * @complexity
- * O(n) where `n` is the number of digits in `digitsInteger.toString()`.
  *
  * @since 2.0.0
  */

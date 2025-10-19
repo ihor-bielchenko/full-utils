@@ -1,4 +1,4 @@
-import { isNumPZ } from '../is/isNumPZ';
+import { isNumPZ } from '../index';
 
 /**
  * Converts a number expressed in normalized exponential/scientific notation
@@ -21,6 +21,9 @@ import { isNumPZ } from '../is/isNumPZ';
  * - All returned parts (`integerPart`, `fractionalPart`) contain only ASCII digits.
  *   The decimal point is **not** returned; you can re-insert it if needed by
  *   placing it between `integerPart` and `fractionalPart`.
+ * 
+ * Time O(n) and space O(n), where n is the number of digits in the coefficient,
+ * due to string concatenation and slicing.
  *
  * @param sign - The pre-parsed sign of the number: `1` for positive, `-1` for negative.
  * @param exponentialString - A string in exponential notation.
@@ -73,10 +76,6 @@ import { isNumPZ } from '../is/isNumPZ';
  * ```
  *
  * @see isNumPZ — utility used here to detect non-negative integers (exponent ≥ 0).
- *
- * @complexity
- * Time O(n) and space O(n), where n is the number of digits in the coefficient,
- * due to string concatenation and slicing.
  *
  * @since 2.0.0
  */

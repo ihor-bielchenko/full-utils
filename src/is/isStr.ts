@@ -56,7 +56,7 @@
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isStr(value: unknown): value is string {
 	return typeof value === 'string';

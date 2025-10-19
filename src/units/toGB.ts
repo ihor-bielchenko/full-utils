@@ -1,5 +1,7 @@
-import { isNum } from '../is/isNum';
-import { formatToNum } from '../num/formatToNum';
+import { 
+	isNum,
+	formatToNum, 
+} from '../index';
 
 const KB = 1024;
 const MB = KB * 1024;
@@ -92,7 +94,7 @@ const PB = TB * 1024;
  *
  * @category Conversion
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function toGB(value: unknown, unit = ''): number {
 	const v = formatToNum(value as any);

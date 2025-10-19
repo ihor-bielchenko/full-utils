@@ -1,4 +1,3 @@
-
 /**
  * Formats a {@link Date} object into a human-readable timestamp string
  * using the pattern `"YYYY-MM-DD HH:mm:ss"`.
@@ -14,6 +13,13 @@
  * Each date/time component (month, day, hours, minutes, seconds) is padded to
  * two digits using {@link String.padStart}, ensuring consistent width such as
  * `2025-03-07 09:04:02`.
+ * 
+ * - The format is fixed-width and consistent — ideal for logs, filenames,
+ *   and database-friendly timestamps.
+ * - The output is **not ISO 8601** (which uses a `'T'` separator and optional
+ *   timezone offset).  
+ *   Example: ISO → `"2025-10-18T10:43:27Z"`  
+ *   This function → `"2025-10-18 10:43:27"`.
  *
  * @param date - The date to format. Defaults to the **current system time**
  * (`new Date()`).
@@ -45,20 +51,12 @@
  *
  * @throws Never throws.
  *
- * @notes
- * - The format is fixed-width and consistent — ideal for logs, filenames,
- *   and database-friendly timestamps.
- * - The output is **not ISO 8601** (which uses a `'T'` separator and optional
- *   timezone offset).  
- *   Example: ISO → `"2025-10-18T10:43:27Z"`  
- *   This function → `"2025-10-18 10:43:27"`.
- *
  * @see {@link Date} for JavaScript’s native date-handling API.
  * @see {@link Intl.DateTimeFormat} for locale-aware formatting if needed.
  *
  * @public
  * @category Date & Time
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function formatDateToString(date = new Date()): string {
 	const pad = (n: number) => String(n).padStart(2, '0');

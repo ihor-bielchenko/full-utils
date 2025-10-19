@@ -1,4 +1,4 @@
-import type { TcpError } from './types';
+import type { TcpError } from '../node';
 
 /**
  * Creates a rich {@link Error} object with a string `code` property for consistent error handling.
@@ -8,9 +8,9 @@ import type { TcpError } from './types';
  *   safely inspect `error.code` (e.g., `'ENODEONLY'`, `'EBADPORT'`, `'ETIMEDOUT'`).
  * - The returned object is an `Error` augmented with optional Node-style fields via the
  *   {@link TcpError} interface.
- * - The cast to `AppError` assumes a local type that is compatible with {@link TcpError}
+ * - The cast to `TcpError` assumes a local type that is compatible with {@link TcpError}
  *   (i.e., extends `Error` and includes an optional `code: string`). If you don’t have
- *   such a type, ensure that `AppError` is defined accordingly or change the cast to
+ *   such a type, ensure that `TcpError` is defined accordingly or change the cast to
  *   `unknown as TcpError`. The runtime behavior is the same—this helper adds `code`.
  *
  * @param code - Short, machine-readable identifier of the error condition
@@ -38,7 +38,7 @@ import type { TcpError } from './types';
  * @since 2.0.0
  */
 export function err(code: string, message?: string): TcpError {
-	const e = new Error(message ?? code) as AppError;
+	const e = new Error(message ?? code) as TcpError;
 	
 	e.code = code;
 	

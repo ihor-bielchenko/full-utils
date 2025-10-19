@@ -1,4 +1,4 @@
-import { isStr } from './isStr';
+import { isStr } from '../index';
 
 const IPV4_RE = /^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$/;
 
@@ -64,7 +64,7 @@ const IPV4_RE = /^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.
  *
  * @category Validation
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isIpAddr(value: unknown): value is string {
 	if (!isStr(value)) {

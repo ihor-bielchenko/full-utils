@@ -1,4 +1,3 @@
-
 /**
  * Checks whether a given value is a **function**.
  *
@@ -61,7 +60,7 @@
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isFunc<T extends Function = Function>(value: unknown): value is T {
 	return typeof value === 'function';

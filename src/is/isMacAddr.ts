@@ -1,4 +1,4 @@
-import { isStr } from './isStr';
+import { isStr } from '../index';
 
 /**
  * Checks whether a given value is a **valid MAC address**.
@@ -66,7 +66,7 @@ import { isStr } from './isStr';
  *
  * @category Validation
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isMacAddr(value: unknown): value is string {
 	return isStr(value) && /^([0-9A-Fa-f]{2}[:-]){5}([0-9A-Fa-f]{2})$/.test(value);

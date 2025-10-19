@@ -1,4 +1,8 @@
-import { isNumP } from '../is/isNumP';
+import { 
+	isNumP,
+	ipAddrToNum, 
+	parseIPv4,
+} from '../index';
 
 /**
  * Converts a 32-bit unsigned integer (numeric IPv4 representation)
@@ -15,6 +19,11 @@ import { isNumP } from '../is/isNumP';
  *
  * The resulting string always consists of **exactly four decimal octets**
  * separated by dots, with each octet in the range `0–255`.
+ * 
+ * - Internally uses {@link DataView} to ensure consistent big-endian behavior
+ *   across all platforms.
+ * - The output format is always normalized (no leading zeros, no spaces).
+ * - For the forward direction (string → number), see {@link ipAddrToNum}.
  *
  * @param num - The 32-bit unsigned integer representing an IPv4 address.
  *
@@ -42,18 +51,12 @@ import { isNumP } from '../is/isNumP';
  *
  * @throws Never throws; invalid inputs simply return an empty string.
  *
- * @notes
- * - Internally uses {@link DataView} to ensure consistent big-endian behavior
- *   across all platforms.
- * - The output format is always normalized (no leading zeros, no spaces).
- * - For the forward direction (string → number), see {@link ipAddrToNum}.
- *
  * @see {@link ipAddrToNum} — converts dotted IPv4 strings to numeric form.
  * @see {@link parseIPv4} — alternative parser using bitwise arithmetic.
  *
  * @public
  * @category Network & IP
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function numToIpAddr(num: number): string {
 	if (!isNumP(num)) {

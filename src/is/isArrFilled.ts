@@ -1,4 +1,4 @@
-import { isArr } from './isArr';
+import { isArr } from '../index';
 
 
 /**
@@ -65,7 +65,7 @@ import { isArr } from './isArr';
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isArrFilled<T = unknown>(value: unknown): value is readonly [ T, ...T[] ] {
 	return isArr(value) && value.length > 0;

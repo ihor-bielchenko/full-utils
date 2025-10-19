@@ -1,4 +1,4 @@
-import { isStrFilled } from './isStrFilled';
+import { isStrFilled } from '../index';
 
 const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z]{2,})+$/;
 
@@ -65,7 +65,7 @@ const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]
  *
  * @category Validation
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isEmail(value: unknown): value is string {
 	if (!isStrFilled(value)) {

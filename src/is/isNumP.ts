@@ -1,4 +1,4 @@
-import { isNum } from './isNum';
+import { isNum } from '../index';
 
 /**
  * Checks whether a given value is a **positive finite number**.
@@ -67,7 +67,7 @@ import { isNum } from './isNum';
  *
  * @category Type Guards
  * @public
- * @since 1.0.0
+ * @since 2.0.0
  */
 export function isNumP(value: unknown): value is number {
 	return isNum(value) && value > 0;
