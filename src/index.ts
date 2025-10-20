@@ -3,6 +3,8 @@ export * from './arr/splitArrToPortions';
 
 export * from './bool/formatToBool';
 
+export * from './common/wait';
+
 export type * from './date/types';
 export * from './date/floorDateToMinutes';
 export * from './date/formatDateToString';
