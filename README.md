@@ -33,6 +33,10 @@ All functions:
 - Are documented via TypeDoc
 - Work without any external dependencies
 
+## Documentation
+Full API documentation:
+- full-utils.docs.ihor.bielchenko.com
+
 ## Quick Example
 ```javascript
 import { isStrFilled, formatDateToString, rangeIPv4 } from 'full-utils';
@@ -170,10 +174,6 @@ import { formatDateToString, isStrFilled } from 'full-utils';
 ## TypeScript Ready
 Every function is strongly typed and documented.
 You’ll get autocompletion, inline JSDoc, and type inference automatically.
-
-## Documentation
-Full API documentation:
-- full-utils.docs.ihor.bielchenko.com
 
 ## Versioning
 Follows semantic versioning (MAJOR.MINOR.PATCH).
