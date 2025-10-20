@@ -10,10 +10,6 @@
  * @defaultValue 0
  *
  * @returns A `Promise<void | true>` that settles after the given delay.
- * @returnsRemarks
- * The internal promise resolves with the value `true`, but callers typically
- * use `await wait(...)` and ignore the value. If you need a strictly `void`
- * result, you can cast or ignore the resolution value.
  *
  * @example
  * // Basic usage: pause for ~500 ms
@@ -54,19 +50,29 @@
  * - **Event loop semantics:** `setTimeout(0)` schedules a **macrotask**; it does not
  *   run synchronously. Code after `await wait(0)` will execute on a subsequent turn
  *   of the event loop.
- * - No I/O, side effects, or data exposure. Purely schedules a future resolution.
- * - The function allocates a single promise and a timer handle.
- * - Timer resolution is platform dependent; Node.js and browsers may clamp very
- *   small delays to a minimum threshold under load.
  * 
- * - Time: **O(1)** (scheduling a single timer)
- * - Space: **O(1)** (a promise and a timer reference)
- *
- * @notes
+ * Notes:
  * - Suitable for throttling UI interactions, pacing network retries, and writing
  *   deterministic tests (with caution re: flakiness).
  * - Keep delays small in performance-critical code paths; prefer debouncing or
  *   requestAnimationFrame for UI-animation pacing when appropriate.
+ * 
+ * 	Complexity:
+ * - Time: **O(1)** (scheduling a single timer)
+ * - Space: **O(1)** (a promise and a timer reference)
+ *
+ * Performance:
+ * - The function allocates a single promise and a timer handle.
+ * - Timer resolution is platform dependent; Node.js and browsers may clamp very
+ *   small delays to a minimum threshold under load.
+ *
+ * Security:
+ * - No I/O, side effects, or data exposure. Purely schedules a future resolution.
+ * 
+ * <b>Returns remarks</b>:
+ * The internal promise resolves with the value `true`, but callers typically
+ * use `await wait(...)` and ignore the value. If you need a strictly `void`
+ * result, you can cast or ignore the resolution value.
  *
  * @category Utilities • Timing
  * @since 1.0.0
