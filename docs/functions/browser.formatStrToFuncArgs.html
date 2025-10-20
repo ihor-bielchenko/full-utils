@@ -1,0 +1,97 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>formatStrToFuncArgs | full-utils API Docs - v2.0.0</title><meta name="description" content="Documentation for full-utils API Docs"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="../index.html" class="title">full-utils API Docs - v2.0.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb" aria-label="Breadcrumb"><li><a href="../modules/browser.html">browser</a></li><li><a href="" aria-current="page">formatStrToFuncArgs</a></li></ul><h1>Function formatStrToFuncArgs</h1></div><section class="tsd-panel"><ul class="tsd-signatures"><li class=""><div class="tsd-signature tsd-anchor-link" id="formatstrtofuncargs"><span class="tsd-kind-call-signature">formatStrToFuncArgs</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">[]</span><a href="#formatstrtofuncargs" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div><div class="tsd-description"><div class="tsd-comment tsd-typography"><p>Parse a human-typed string of function-like arguments into a normalized array of JS values.</p>
+</div><div class="tsd-parameters"><h4 class="tsd-parameters-title">Parameters</h4><ul class="tsd-parameter-list"><li><span><span class="tsd-kind-parameter">value</span>: <span class="tsd-signature-type">string</span></span><div class="tsd-comment tsd-typography"><p>Raw string containing comma-separated arguments.
+If <code>value</code> is <strong>not</strong> a string, the function returns <code>[value]</code> unchanged.</p>
+</div></li></ul></div><h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol">[]</span></h4><p>An array of coerced values (<code>unknown[]</code>). Each item is one parsed token.</p>
+<div class="tsd-comment tsd-typography"><div class="tsd-tag-remarks"><h4 class="tsd-anchor-link" id="remarks">Remarks<a href="#remarks" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><h3 id="how-parsing-works" class="tsd-anchor-link">How parsing works<a href="#how-parsing-works" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ol>
+<li>
+<p><strong>Input normalization</strong></p>
+<ul>
+<li>Non-string inputs are returned as a single-element array <code>[value]</code>.</li>
+<li>Leading/trailing whitespace is trimmed.</li>
+<li>If the entire string is wrapped in square brackets (<code>[...]</code>), the brackets are
+removed (so the function accepts both <code>a,b,c</code> and <code>[a, b, c]</code>).</li>
+<li>Empty input (after trimming or after removing <code>[...]</code>) yields <code>[]</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Tokenization by top-level commas</strong></p>
+<ul>
+<li>The string is scanned left-to-right.</li>
+<li>The parser tracks nesting <strong>depth</strong> for <code>()</code>, <code>[]</code>, <code>{}</code> and whether it is
+currently <strong>inside quotes</strong>. A comma only splits tokens at <strong>depth 0</strong> and
+<strong>outside quotes</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Per-token coercion (in this order)</strong></p>
+<ul>
+<li><strong>Macro / call marker</strong>: If a token starts with <code>$</code>, contains <code>(</code>, and ends
+with <code>)</code>, it is returned unchanged (e.g., <code>&quot;$env(PATH)&quot;</code>).</li>
+<li><strong>Literals</strong>: <code>null</code> → <code>null</code>, <code>undefined</code> → <code>undefined</code>.</li>
+<li><strong>Booleans</strong>: Using <a href="browser.isStrBool.html" class="tsd-kind-function">isStrBool</a> + <a href="browser.formatToBool.html" class="tsd-kind-function">formatToBool</a> (e.g., <code>&quot;true&quot;</code>,
+<code>&quot;False&quot;</code>, <code>&quot;yes&quot;</code>, <code>&quot;0&quot;</code> depending on your implementation).</li>
+<li><strong>Numbers</strong>: Using <a href="browser.formatToNum.html" class="tsd-kind-function">formatToNum</a>. If the result is finite, it is returned.
+Explicit <code>&quot;Infinity&quot;</code> and <code>&quot;-Infinity&quot;</code> are also supported.</li>
+<li><strong>Quoted strings</strong>: <code>'text'</code> or <code>&quot;text&quot;</code> → inner text with escapes processed
+(<code>\\</code> → <code>\</code>, <code>\'</code> → <code>'</code>, <code>\&quot;</code> → <code>&quot;</code>).</li>
+<li><strong>JSON</strong>: If token begins with <code>{</code> and ends with <code>}</code>, or begins with <code>[</code> and
+ends with <code>]</code>, the function attempts <code>jsonDecode</code>. On failure, the raw string
+is returned.</li>
+<li><strong>Fallback</strong>: Raw token as string.</li>
+</ul>
+</li>
+</ol>
+<h3 id="escaping-inside-quotes" class="tsd-anchor-link">Escaping inside quotes<a href="#escaping-inside-quotes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>Backslash escaping is supported while inside quotes:
+<ul>
+<li><code>\\</code> for a literal backslash</li>
+<li><code>\&quot;</code> inside double quotes</li>
+<li><code>\'</code> inside single quotes</li>
+</ul>
+</li>
+</ul>
+<h3 id="non-throwing-behavior" class="tsd-anchor-link">Non-throwing behavior<a href="#non-throwing-behavior" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>The function aims to be <strong>robust</strong> and <strong>non-throwing</strong>. Invalid JSON will be
+returned as a plain string rather than crashing.</li>
+</ul>
+<h3 id="security-considerations" class="tsd-anchor-link">Security considerations<a href="#security-considerations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>The parser <strong>does not</strong> evaluate code; it only returns strings or parsed values.
+If you plan to execute anything returned (e.g., tokens starting with <code>$...</code>),
+do so in a sandbox with explicit allow-lists.</li>
+</ul>
+<h3 id="limitations" class="tsd-anchor-link">Limitations<a href="#limitations" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>Numerical parsing relies on <a href="browser.formatToNum.html" class="tsd-kind-function">formatToNum</a>. Extremely large or high-precision
+decimals may still be subject to JavaScript <code>number</code> precision limits unless your
+<code>formatToNum</code> converts to a safer representation.</li>
+<li>Only basic backslash escapes are handled in quoted strings (no <code>\uXXXX</code> decoding here).</li>
+<li>Whitespace outside quotes is trimmed from each token; internal whitespace is preserved.</li>
+</ul>
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// Basic values</span><br/><span class="hl-8">formatStrToFuncArgs</span><span class="hl-0">(</span><span class="hl-9">&#39;1, true, &quot;hello&quot;&#39;</span><span class="hl-0">); </span><span class="hl-5">// =&gt; [1, true, &quot;hello&quot;]</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-1">Example<a href="#example-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// Bracket-wrapped list</span><br/><span class="hl-8">formatStrToFuncArgs</span><span class="hl-0">(</span><span class="hl-9">&#39;[1, 2, 3]&#39;</span><span class="hl-0">); </span><span class="hl-5">// =&gt; [1, 2, 3]</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-2">Example<a href="#example-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// Nested structures and quoting</span><br/><span class="hl-8">formatStrToFuncArgs</span><span class="hl-0">(</span><span class="hl-9">&#39;{&quot;a&quot;:1,&quot;b&quot;:[2,3]}, &quot;te,xt&quot;, (x,y)&#39;</span><span class="hl-0">); </span><span class="hl-5">// =&gt; [ {a:1,b:[2,3]}, &quot;te,xt&quot;, &quot;(x,y)&quot; ]</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-3">Example<a href="#example-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// Booleans, null/undefined, and Infinity</span><br/><span class="hl-8">formatStrToFuncArgs</span><span class="hl-0">(</span><span class="hl-9">&#39;yes, NO, null, undefined, Infinity, -Infinity&#39;</span><span class="hl-0">);</span><br/><span class="hl-5">// =&gt; [true, false, null, undefined, Infinity, -Infinity]</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-4">Example<a href="#example-4" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// Macro-like token (returned as-is)</span><br/><span class="hl-8">formatStrToFuncArgs</span><span class="hl-0">(</span><span class="hl-9">&#39;$env(PATH)&#39;</span><span class="hl-0">); </span><span class="hl-5">// =&gt; [&quot;$env(PATH)&quot;]</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-5">Example<a href="#example-5" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// Escapes inside quotes</span><br/><span class="hl-8">formatStrToFuncArgs</span><span class="hl-0">(</span><span class="hl-9">&#39;&quot;He said: </span><span class="hl-11">\\</span><span class="hl-9">&quot;Hi</span><span class="hl-11">\\</span><span class="hl-9">&quot;&quot;, </span><span class="hl-11">\&#39;</span><span class="hl-9">It</span><span class="hl-11">\\\&#39;</span><span class="hl-9">s ok</span><span class="hl-11">\&#39;</span><span class="hl-9">, &quot;</span><span class="hl-11">\\\\</span><span class="hl-9">path&quot;&#39;</span><span class="hl-0">);</span><br/><span class="hl-5">// =&gt; [&#39;He said: &quot;Hi&quot;&#39;, &quot;It&#39;s ok&quot;, &quot;\\path&quot;]</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-6">Example<a href="#example-6" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// Empty and whitespace inputs</span><br/><span class="hl-8">formatStrToFuncArgs</span><span class="hl-0">(</span><span class="hl-9">&#39;   &#39;</span><span class="hl-0">);          </span><span class="hl-5">// =&gt; []</span><br/><span class="hl-8">formatStrToFuncArgs</span><span class="hl-0">(</span><span class="hl-9">&#39;[]&#39;</span><span class="hl-0">);           </span><span class="hl-5">// =&gt; []</span><br/><span class="hl-8">formatStrToFuncArgs</span><span class="hl-0">(</span><span class="hl-9">&#39;[   ]&#39;</span><span class="hl-0">);        </span><span class="hl-5">// =&gt; []</span><br/><span class="hl-8">formatStrToFuncArgs</span><span class="hl-0">(</span><span class="hl-9">&#39;  [ a , b ] &#39;</span><span class="hl-0">); </span><span class="hl-5">// =&gt; [&quot;a&quot;, &quot;b&quot;]</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-see"><h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ul>
+<li>isStrBool</li>
+<li>formatToBool</li>
+<li>formatToNum</li>
+<li>jsonDecode</li>
+</ul>
+</div><div class="tsd-tag-since"><h4 class="tsd-anchor-link" id="since">Since<a href="#since" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>2.0.0</p>
+</div></div><aside class="tsd-sources"><ul><li>Defined in <a href="https://github.com/ihor-bielchenko/full-utils/blob/2cb74fc1d58450c5d5fcb227caae33f3892d14e8/src/arr/formatStrToFuncArgs.ts#L130">arr/formatStrToFuncArgs.ts:130</a></li></ul></aside></div></li></ul></section></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#how-parsing-works"><span>How parsing works</span></a><a href="#escaping-inside-quotes"><span>Escaping inside quotes</span></a><a href="#non-throwing-behavior"><span>Non-<wbr/>throwing behavior</span></a><a href="#security-considerations"><span>Security considerations</span></a><a href="#limitations"><span>Limitations</span></a></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../modules.html">full-utils API Docs - v2.0.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html><html class="default" lang="en" data-base="../"><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>toGH | full-utils API Docs - v2.0.0</title><meta name="description" content="Documentation for full-utils API Docs"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => window.app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><a href="../index.html" class="title">full-utils API Docs - v2.0.0</a><div id="tsd-toolbar-links"></div><button id="tsd-search-trigger" class="tsd-widget" aria-label="Search"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></button><dialog id="tsd-search" aria-label="Search"><input role="combobox" id="tsd-search-input" aria-controls="tsd-search-results" aria-autocomplete="list" aria-expanded="true" autocapitalize="off" autocomplete="off" placeholder="Search the docs" maxLength="100"/><ul role="listbox" id="tsd-search-results"></ul><div id="tsd-search-status" aria-live="polite" aria-atomic="true"><div>Preparing search index...</div></div></dialog><a href="#" class="tsd-widget menu" id="tsd-toolbar-menu-trigger" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb" aria-label="Breadcrumb"><li><a href="../modules/browser.html">browser</a></li><li><a href="" aria-current="page">toGH</a></li></ul><h1>Function toGH</h1></div><section class="tsd-panel"><ul class="tsd-signatures"><li class=""><div class="tsd-signature tsd-anchor-link" id="togh"><span class="tsd-kind-call-signature">toGH</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">,</span> <span class="tsd-kind-parameter">unit</span><span class="tsd-signature-symbol">?:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><a href="#togh" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></div><div class="tsd-description"><div class="tsd-comment tsd-typography"><p>Converts a hashrate (or similar magnitude value) into <strong>gigahashes per second</strong> (<code>GH/s</code>).</p>
+</div><div class="tsd-parameters"><h4 class="tsd-parameters-title">Parameters</h4><ul class="tsd-parameter-list"><li><span><span class="tsd-kind-parameter">value</span>: <span class="tsd-signature-type">any</span></span><div class="tsd-comment tsd-typography"><p>Input numeric value or string representing a number (e.g. <code>&quot;1200&quot;</code>, <code>3.5</code>).</p>
+</div></li><li><span><span class="tsd-kind-parameter">unit</span>: <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &#39;&#39;</span></span><div class="tsd-comment tsd-typography"><p>Optional unit string representing the magnitude (<code>H</code>, <code>kH</code>, <code>MH</code>, <code>GH</code>, <code>TH</code>, <code>PH</code>, <code>EH</code>).
+Case-insensitive and automatically normalized via normalizeUnit.</p>
+</div></li></ul></div><h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><p>The normalized value expressed in <strong>gigahashes per second (GH/s)</strong>.
+Returns <code>0</code> if the input is invalid or non-numeric.</p>
+<div class="tsd-comment tsd-typography"><div class="tsd-tag-remarks"><h4 class="tsd-anchor-link" id="remarks">Remarks<a href="#remarks" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><h3 id="conversion-logic" class="tsd-anchor-link">Conversion logic<a href="#conversion-logic" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ol>
+<li>
+<p><strong>Parsing:</strong><br>
+Uses <a href="browser.formatToNum.html" class="tsd-kind-function">formatToNum</a> to safely convert <code>value</code> into a number.</p>
+</li>
+<li>
+<p><strong>Validation:</strong><br>
+If the parsed number is not finite (<code>NaN</code>, <code>Infinity</code>, etc.), returns <code>0</code>.</p>
+</li>
+<li>
+<p><strong>Unit normalization:</strong><br>
+Calls normalizeUnit to clean up and simplify the unit name (e.g. <code>&quot; MH/s &quot;</code> → <code>&quot;mh&quot;</code>).
+Then takes the first character (<code>m</code>, <code>g</code>, <code>t</code>, etc.) to determine scale.</p>
+</li>
+<li>
+<p><strong>Factor lookup:</strong><br>
+Applies the following conversion factors relative to gigahashes:</p>
+<table>
+<thead>
+<tr>
+<th>Prefix</th>
+<th>Unit</th>
+<th>Factor (to GH)</th>
+<th>Example conversion</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>h</code></td>
+<td>hashes/s</td>
+<td><code>1e-9</code></td>
+<td><code>1e9 H/s</code> = <code>1 GH/s</code></td>
+</tr>
+<tr>
+<td><code>k</code></td>
+<td>kilohash</td>
+<td><code>1e-6</code></td>
+<td><code>1e6 kH/s</code> = <code>1 GH/s</code></td>
+</tr>
+<tr>
+<td><code>m</code></td>
+<td>megahash</td>
+<td><code>1e-3</code></td>
+<td><code>1e3 MH/s</code> = <code>1 GH/s</code></td>
+</tr>
+<tr>
+<td><code>g</code></td>
+<td>gigahash</td>
+<td><code>1</code></td>
+<td>identity</td>
+</tr>
+<tr>
+<td><code>t</code></td>
+<td>terahash</td>
+<td><code>1e3</code></td>
+<td><code>1 TH/s</code> = <code>1000 GH/s</code></td>
+</tr>
+<tr>
+<td><code>p</code></td>
+<td>petahash</td>
+<td><code>1e6</code></td>
+<td><code>1 PH/s</code> = <code>1,000,000 GH/s</code></td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>exahash</td>
+<td><code>1e9</code></td>
+<td><code>1 EH/s</code> = <code>1,000,000,000 GH/s</code></td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p><strong>Result validation:</strong><br>
+If the final result is not a finite number, throws an error.
+Otherwise returns the computed gigahashes value (with <code>-0</code> normalized to <code>0</code>).</p>
+</li>
+</ol>
+<h3 id="behavior-notes" class="tsd-anchor-link">Behavior notes<a href="#behavior-notes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>Returns <code>0</code> instead of throwing when the input cannot be parsed as a number.</li>
+<li>Uses <strong>decimal scaling</strong> (<code>×1000</code>), not binary (<code>×1024</code>).</li>
+<li>Handles both numeric and string inputs seamlessly.</li>
+<li>Automatically ignores plural or rate suffixes (like <code>/s</code>, <code>hashes</code>).</li>
+</ul>
+<h3 id="performance" class="tsd-anchor-link">Performance<a href="#performance" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3><ul>
+<li>Time complexity: <strong>O(1)</strong>.</li>
+<li>Space complexity: <strong>O(1)</strong>.</li>
+</ul>
+<h3 id="examples" class="tsd-anchor-link">Examples<a href="#examples" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h3></div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example">Example<a href="#example" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// Basic conversions</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-1">1</span><span class="hl-0">, </span><span class="hl-9">&#39;GH&#39;</span><span class="hl-0">);     </span><span class="hl-5">// =&gt; 1</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-1">1</span><span class="hl-0">, </span><span class="hl-9">&#39;TH&#39;</span><span class="hl-0">);     </span><span class="hl-5">// =&gt; 1000</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-1">1</span><span class="hl-0">, </span><span class="hl-9">&#39;MH&#39;</span><span class="hl-0">);     </span><span class="hl-5">// =&gt; 0.001</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-1">1</span><span class="hl-0">, </span><span class="hl-9">&#39;kH&#39;</span><span class="hl-0">);     </span><span class="hl-5">// =&gt; 0.000001</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-1">1</span><span class="hl-0">, </span><span class="hl-9">&#39;PH&#39;</span><span class="hl-0">);     </span><span class="hl-5">// =&gt; 1_000_000</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-1">1</span><span class="hl-0">, </span><span class="hl-9">&#39;EH&#39;</span><span class="hl-0">);     </span><span class="hl-5">// =&gt; 1_000_000_000</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-1">Example<a href="#example-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// String inputs and normalization</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-9">&#39;1200&#39;</span><span class="hl-0">, </span><span class="hl-9">&#39;mh/s&#39;</span><span class="hl-0">);   </span><span class="hl-5">// =&gt; 1.2</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-9">&#39;3.5&#39;</span><span class="hl-0">, </span><span class="hl-9">&#39;TH/s&#39;</span><span class="hl-0">);    </span><span class="hl-5">// =&gt; 3500</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-2">Example<a href="#example-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// Invalid or edge inputs</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-9">&#39;&#39;</span><span class="hl-0">, </span><span class="hl-9">&#39;GH&#39;</span><span class="hl-0">);         </span><span class="hl-5">// =&gt; 0</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-3">null</span><span class="hl-0">, </span><span class="hl-9">&#39;GH&#39;</span><span class="hl-0">);       </span><span class="hl-5">// =&gt; 0</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-3">NaN</span><span class="hl-0">, </span><span class="hl-9">&#39;MH&#39;</span><span class="hl-0">);        </span><span class="hl-5">// =&gt; 0</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-example"><h4 class="tsd-anchor-link" id="example-3">Example<a href="#example-3" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><pre><code class="ts"><span class="hl-5">// Custom normalization of unit formatting</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-1">5</span><span class="hl-0">, </span><span class="hl-9">&#39; khash / s &#39;</span><span class="hl-0">); </span><span class="hl-5">// =&gt; 0.000005</span><br/><span class="hl-8">toGH</span><span class="hl-0">(</span><span class="hl-1">2</span><span class="hl-0">, </span><span class="hl-9">&#39;T&#39;</span><span class="hl-0">);           </span><span class="hl-5">// =&gt; 2000</span>
+</code><button type="button">Copy</button></pre>
+
+</div><div class="tsd-tag-see"><h4 class="tsd-anchor-link" id="see">See<a href="#see" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><ul>
+<li>formatToNum</li>
+<li>isNum</li>
+<li>normalizeUnit</li>
+</ul>
+</div><div class="tsd-tag-since"><h4 class="tsd-anchor-link" id="since">Since<a href="#since" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><use href="../assets/icons.svg#icon-anchor"></use></svg></a></h4><p>2.0.0</p>
+</div></div><aside class="tsd-sources"><ul><li>Defined in <a href="https://github.com/ihor-bielchenko/full-utils/blob/2cb74fc1d58450c5d5fcb227caae33f3892d14e8/src/units/toGH.ts#L105">units/toGH.ts:105</a></li></ul></aside></div></li></ul></section></div><div class="col-sidebar"><div class="page-menu"><div class="tsd-navigation settings"><details class="tsd-accordion"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>Settings</h3></summary><div class="tsd-accordion-details"><div class="tsd-filter-visibility"><span class="settings-label">Member Visibility</span><ul id="tsd-filter-options"><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-protected" name="protected"/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Protected</span></label></li><li class="tsd-filter-item"><label class="tsd-filter-input"><input type="checkbox" id="tsd-filter-inherited" name="inherited" checked/><svg width="32" height="32" viewBox="0 0 32 32" aria-hidden="true"><rect class="tsd-checkbox-background" width="30" height="30" x="1" y="1" rx="6" fill="none"></rect><path class="tsd-checkbox-checkmark" d="M8.35422 16.8214L13.2143 21.75L24.6458 10.25" stroke="none" stroke-width="3.5" stroke-linejoin="round" fill="none"></path></svg><span>Inherited</span></label></li></ul></div><div class="tsd-theme-toggle"><label class="settings-label" for="tsd-theme">Theme</label><select id="tsd-theme"><option value="os">OS</option><option value="light">Light</option><option value="dark">Dark</option></select></div></div></details></div><details open class="tsd-accordion tsd-page-navigation"><summary class="tsd-accordion-summary"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-chevronDown"></use></svg><h3>On This Page</h3></summary><div class="tsd-accordion-details"><a href="#conversion-logic"><span>Conversion logic</span></a><a href="#behavior-notes"><span>Behavior notes</span></a><a href="#performance"><span>Performance</span></a><a href="#examples"><span>Examples</span></a></div></details></div><div class="site-menu"><nav class="tsd-navigation"><a href="../modules.html">full-utils API Docs - v2.0.0</a><ul class="tsd-small-nested-navigation" id="tsd-nav-container"><li>Loading...</li></ul></nav></div></div></div><footer><p class="tsd-generator">Generated using <a href="https://typedoc.org/" target="_blank">TypeDoc</a></p></footer><div class="overlay"></div></body></html>
