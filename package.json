@@ -1,6 +1,6 @@
 {
 	"name": "full-utils",
-	"version": "2.0.0",
+	"version": "2.0.1",
 	"description": "Сomprehensive collection of pure, zero-dependency functions for everyday JavaScript and TypeScript development.",
 	"author": "ihor-bielchenko",
 	"license": "MIT",
@@ -85,7 +85,7 @@
 		"typescript": "^5.9.3"
 	},
 	"scripts": {
-		"build": "tsup src/index.ts --format esm,cjs --dts",
+		"build": "tsup --config tsup.config.ts",
 		"clean": "rimraf dist docs"
 	}
 }
