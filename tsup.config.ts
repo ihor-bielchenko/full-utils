@@ -13,7 +13,11 @@ export default defineConfig([
 		splitting: false,
 		clean: true,
 		target: 'es2020',
+		minify: true,
+		outDir: 'dist',
+		outExtension: (ctx) => ({
+			js: ctx.format === 'esm' ? '.mjs' : '.cjs',
+		}),
 		treeshake: true,
-		minify: false
 	}
 ]);
