@@ -63,6 +63,7 @@ export * from './num/parseToFixedDecimal'
 export * from './num/roundFixedDecimal';
 
 export * from './str/formatToLowerCase'
+export * from './str/formatToNormalCase';
 export * from './str/formatToNull'
 export * from './str/formatToPhone'
 export * from './str/formatToTrim'
