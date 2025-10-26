@@ -1,6 +1,6 @@
 {
 	"name": "full-utils",
-	"version": "2.0.1",
+	"version": "2.0.2",
 	"description": "Сomprehensive collection of pure, zero-dependency functions for everyday JavaScript and TypeScript development.",
 	"author": "ihor-bielchenko",
 	"license": "MIT",
@@ -18,6 +18,7 @@
 	"types": "./dist/index.d.ts",
 	"exports": {
 		".": {
+			"types": "./dist/index.d.ts",
 			"browser": {
 				"import": "./dist/browser.mjs",
 				"require": "./dist/browser.cjs"
@@ -27,14 +28,23 @@
 			"default": "./dist/index.mjs"
 		},
 		"./node": {
+			"types": "./dist/node.d.ts",
 			"import": "./dist/node.mjs",
 			"require": "./dist/node.cjs"
 		},
 		"./net": {
+			"types": "./dist/net/index.d.ts",
 			"node": {
 				"import": "./dist/net/index.mjs",
 				"require": "./dist/net/index.cjs"
 			}
+		}
+	},
+	"typesVersions": {
+		"*": {
+			"*": [ "dist/index.d.ts" ],
+			"node": [ "dist/node.d.ts" ],
+			"net": [ "dist/net/index.d.ts" ]
 		}
 	},
 	"browser": {
