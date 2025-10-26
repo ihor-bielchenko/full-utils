@@ -71,6 +71,14 @@ import {
  * @since 2.0.0
  * @public
  */
-export function formatToNum(value: unknown, round: number = 1): number {
-	return fixedDecimalToNum((round > 1) ? roundFixedDecimal(parseToFixedDecimal(value), round, 'half-up') : parseToFixedDecimal(value));
+export function formatToNum(value: unknown, round: number = 1, throwError: boolean = false): number {
+	try {
+		return fixedDecimalToNum((round > 1) ? roundFixedDecimal(parseToFixedDecimal(value), round, 'half-up') : parseToFixedDecimal(value));
+	}
+	catch (err: any) {
+		if (throwError) {
+			throw err;
+		}
+	}
+	return 0;
 }
