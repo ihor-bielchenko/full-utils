@@ -1,4 +1,4 @@
-export * from './arr/formatStrToFuncArgs';
+export * from './arr/formatStrToFuncArgsArr';
 export * from './arr/splitArrToPortions';
 
 export * from './bool/formatToBool';
@@ -68,6 +68,7 @@ export * from './str/formatToNull'
 export * from './str/formatToPhone'
 export * from './str/formatToTrim'
 export * from './str/formatToUndefined';
+export * from './str/formatArrToSqlWhenCaseStr';
 
 export * from './units/toGB';
 export * from './units/toGH';
