@@ -45,6 +45,7 @@ export * from './is/isStrBool';
 export * from './is/isStrFilled';
 export * from './is/isStrAscDesc';
 export * from './is/isVar';
+export * from './is/isClass';
 
 export type * from './json/types';
 export * from './json/parseStringLike';
@@ -68,7 +69,6 @@ export * from './str/formatToNull'
 export * from './str/formatToPhone'
 export * from './str/formatToTrim'
 export * from './str/formatToUndefined';
-export * from './str/formatArrToSqlWhenCaseStr';
 
 export * from './units/toGB';
 export * from './units/toGH';
