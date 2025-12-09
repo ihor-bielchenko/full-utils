@@ -1,4 +1,4 @@
-import type { FixedDecimal } from '../index';
+import type { FixedDecimal } from './types';
 
 /**
  * Adjusts the **scale** (i.e., number of fractional digits) of a {@link FixedDecimal}

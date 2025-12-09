@@ -1,7 +1,5 @@
-import {
-	rangeIPv4,
-	rangeIPv4ToArr,
-} from '../index';
+import { rangeIPv4 } from './rangeIPv4';
+import { rangeIPv4ToArr } from './rangeIPv4ToArr';
 
 /**
  * Options that control how IPv4 ranges are iterated and materialized.

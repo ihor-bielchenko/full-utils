@@ -1,4 +1,4 @@
-import type { FixedDecimal } from '../index';
+import type { FixedDecimal } from './types';
 
 /**
  * Converts a {@link FixedDecimal} — an exact, integer-based decimal structure —

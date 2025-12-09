@@ -1,4 +1,4 @@
-import type { FixedDecimal } from '../index';
+import type { FixedDecimal } from './types';
 
 /**
  * Rounds a {@link FixedDecimal} value to the specified number of fractional digits,

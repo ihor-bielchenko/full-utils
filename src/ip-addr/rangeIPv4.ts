@@ -1,10 +1,8 @@
-import type { RangeIPv4Options } from '../index';
-import { 
-	cidrToRange,
-	parseIPv4,
-	toIPv4, 
-	rangeIPv4ToArr,
-} from '../index';
+import type { RangeIPv4Options } from './types';
+import { cidrToRange } from './cidrToRange';
+import { parseIPv4 } from './parseIPv4';
+import { toIPv4 } from './toIPv4';
+import { rangeIPv4ToArr } from './rangeIPv4ToArr';
 
 function rangeIPv4(from: string, to?: string): Generator<string>;
 /**

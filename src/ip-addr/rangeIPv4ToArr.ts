@@ -1,5 +1,5 @@
-import type { RangeIPv4Options } from '../index';
-import { rangeIPv4 } from '../index';
+import type { RangeIPv4Options } from './types';
+import { rangeIPv4 } from './rangeIPv4';
 
 /**
  * Materializes an IPv4 range into an array of dotted-quad strings.
