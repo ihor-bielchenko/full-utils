@@ -55,5 +55,6 @@ export * from './str/strNull'
 export * from './str/strPhone'
 export * from './str/strTrim'
 export * from './str/strUndefined';
+export * from './str/strNormalize';
 
 export * from './url/urlObj';
