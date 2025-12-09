@@ -1,6 +1,6 @@
 import { 
 	isStr,
-	formatToTrim, 
+	strTrim, 
 } from '../index';
 
 /**
@@ -36,7 +36,7 @@ export function parseIPv4(ip: string): number | null {
 	if (!isStr(ip)) {
 		return null;
 	}
-	const parts = formatToTrim(ip).split('.');
+	const parts = strTrim(ip).split('.');
 	
 	if (parts.length !== 4) {
 		return null;

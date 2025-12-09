@@ -1,5 +1,5 @@
-import type { FixedDecimal } from '../index';
-import { fixedDecimalToStr } from '../index';
+import type { FixedDecimal } from './types';
+import { fixedDecimalToStr } from './fixedDecimalToStr';
 
 /**
  * Converts a {@link FixedDecimal} — an exact decimal representation —

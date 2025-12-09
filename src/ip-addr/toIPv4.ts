@@ -1,4 +1,4 @@
-import { parseIPv4 } from '../index';
+import { parseIPv4 } from './parseIPv4';
 
 /**
  * Converts an unsigned 32-bit integer into a dotted-quad IPv4 string.

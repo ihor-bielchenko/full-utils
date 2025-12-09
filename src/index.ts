@@ -1,24 +1,18 @@
-export * from './arr/formatStrToFuncArgsArr';
-export * from './arr/splitArrToPortions';
+export * from './arr/arrFuncArgs';
+export * from './arr/arrSplitPortions';
 
-export * from './bool/formatToBool';
+export * from './bool/boolNormalize';
 
 export * from './common/wait';
 
 export type * from './date/types';
-export * from './date/floorDateToMinutes';
-export * from './date/formatDateToString';
-export * from './date/partsToSeconds';
-export * from './date/secondsToParts';
+export * from './date/dateFloorMin';
+export * from './date/dateStr';
+export * from './date/datePartsSec';
+export * from './date/dateSecParts';
 
-export type * from './ip-addr/types';
-export * from './ip-addr/cidrToRange';
-export * from './ip-addr/ipAddrToNum';
-export * from './ip-addr/numToIpAddr';
-export * from './ip-addr/parseIPv4';
-export * from './ip-addr/rangeIPv4';
-export * from './ip-addr/rangeIPv4ToArr';
-export * from './ip-addr/toIPv4';
+export * from './ip-addr/ipStrNum';
+export * from './ip-addr/ipNumStr';
 
 export type * from './is/types';
 export * from './is/isArr';
@@ -48,30 +42,18 @@ export * from './is/isVar';
 export * from './is/isClass';
 
 export type * from './json/types';
-export * from './json/parseStringLike';
-export * from './json/tryParseJSON';
+export * from './json/jsonStrLike';
+export * from './json/jsonParse';
 export * from './json/jsonDecode';
 export * from './json/jsonEncode';
 
-export type * from './num/types';
-export * from './num/changeFixedDecimalScale'
-export * from './num/convertExponentialToParts'
-export * from './num/fixedDecimalToNum'
-export * from './num/fixedDecimalToStr'
-export * from './num/formatToNum'
-export * from './num/normalizeToDecimalComponents'
-export * from './num/parseToFixedDecimal'
-export * from './num/roundFixedDecimal';
+export * from './num/numNormalize';
 
-export * from './str/formatToLowerCase'
-export * from './str/formatToNormalCase';
-export * from './str/formatToNull'
-export * from './str/formatToPhone'
-export * from './str/formatToTrim'
-export * from './str/formatToUndefined';
+export * from './str/strLowerCase'
+export * from './str/strNormalCase';
+export * from './str/strNull'
+export * from './str/strPhone'
+export * from './str/strTrim'
+export * from './str/strUndefined';
 
-export * from './units/toGB';
-export * from './units/toGH';
-export * from './units/toH';
-
-export * from './url/extractHost';
+export * from './url/urlObj';

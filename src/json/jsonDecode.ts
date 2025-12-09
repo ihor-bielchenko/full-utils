@@ -8,7 +8,7 @@ import {
 	isNum,
 	isBool,
 	jsonEncode,
-	parseStringLike,
+	jsonStrLike,
 } from '../index';
 
 /**
@@ -20,10 +20,10 @@ import {
  *
  * - **Primitive passthrough**: `null`, numbers, and booleans are returned as-is.
  * - **Arrays/Objects (filled)**: for each string element/property, we attempt to decode
- *   it via {@link parseStringLike} (JSON → unquoted string → raw string if `allowString`).
+ *   it via {@link jsonStrLike} (JSON → unquoted string → raw string if `allowString`).
  *   Non-string items are passed through unchanged (cast to `JSONLike`).
  * - **Arrays/Objects (empty)**: returned as-is (they’re valid JSON).
- * - **Standalone strings**: decoded via {@link parseStringLike}.
+ * - **Standalone strings**: decoded via {@link jsonStrLike}.
  * - **Other values**: return `null`.
  *
  * The function is **non-throwing**; any JSON parse errors are swallowed internally
@@ -81,7 +81,7 @@ export function jsonDecode<T = JSONLike>(value: unknown, allowString = false): T
 		
 		for (const item of arr) {
 			if (isStrFilled(item)) {
-				out.push(parseStringLike(String(item), allowString));
+				out.push(jsonStrLike(String(item), allowString));
 			}
 			else {
 				out.push(item as JSONLike);
@@ -97,7 +97,7 @@ export function jsonDecode<T = JSONLike>(value: unknown, allowString = false): T
 			const v = src[key];
 			
 			if (isStrFilled(v)) {
-				out[key] = parseStringLike(String(v), allowString);
+				out[key] = jsonStrLike(String(v), allowString);
 			} 
 			else {
 				out[key] = v as JSONLike;
@@ -109,7 +109,7 @@ export function jsonDecode<T = JSONLike>(value: unknown, allowString = false): T
 		return value as unknown as T;
 	}
 	if (isStrFilled(value)) {
-		return parseStringLike(String(value), allowString) as unknown as T;
+		return jsonStrLike(String(value), allowString) as unknown as T;
 	}
 	return null;
 }
