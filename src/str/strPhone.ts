@@ -66,32 +66,32 @@ import {
  *
  * @example
  * // International format already valid
- * formatToPhone('+380501234567');         // => "+380501234567"
+ * strPhone('+380501234567');         // => "+380501234567"
  *
  * @example
  * // European "00" prefix
- * formatToPhone('00442079460729');        // => "+442079460729"
+ * strPhone('00442079460729');        // => "+442079460729"
  *
  * @example
  * // Local 10-digit number (default country +7)
- * formatToPhone('9123456789');            // => "+79123456789"
+ * strPhone('9123456789');            // => "+79123456789"
  *
  * @example
  * // With custom default country
- * formatToPhone('9876543210', '+34');     // => "+349876543210"
+ * strPhone('9876543210', '+34');     // => "+349876543210"
  *
  * @example
  * // Strings with spaces, punctuation, parentheses
- * formatToPhone('(050) 123-45-67');       // => "+70501234567"
- * formatToPhone('+1 (202) 555-0183');     // => "+12025550183"
+ * strPhone('(050) 123-45-67');       // => "+70501234567"
+ * strPhone('+1 (202) 555-0183');     // => "+12025550183"
  *
  * @example
  * // Invalid or ambiguous inputs
- * formatToPhone('');                      // => null
- * formatToPhone('000123456');             // => null
- * formatToPhone('abcdefgh');              // => null
- * formatToPhone(null);                    // => null
- * formatToPhone(true);                    // => null
+ * strPhone('');                      // => null
+ * strPhone('000123456');             // => null
+ * strPhone('abcdefgh');              // => null
+ * strPhone(null);                    // => null
+ * strPhone(true);                    // => null
  *
  * @see isStr
  * @see strTrim
@@ -100,7 +100,7 @@ import {
  * @public
  * @since 2.0.0
  */
-export function formatToPhone(value?: unknown, defaultCountry = '+7'): string | null {
+export function strPhone(value?: unknown, defaultCountry = '+7'): string | null {
 	if (!isStr(value)) {
 		return null;
 	}
