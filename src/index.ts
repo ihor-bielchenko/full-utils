@@ -4,6 +4,7 @@ export * from './arr/arrSplitPortions';
 export * from './bool/boolNormalize';
 
 export * from './common/wait';
+export * from './common/env';
 
 export type * from './date/types';
 export * from './date/dateFloorMin';
@@ -58,3 +59,4 @@ export * from './str/strUndefined';
 export * from './str/strNormalize';
 
 export * from './url/urlObj';
+export * from './url/urlDecode';
