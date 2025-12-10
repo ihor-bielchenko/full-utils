@@ -11,5 +11,5 @@ export const strNormalize = (v: unknown) => {
 	
 	return t === '' 
 		? null 
-		: t.toLowerCase();
+		: String(t.toLowerCase() || '').replace(/\s+/g, ' ').replace(/\t+/g, '').replace(/\n+/g,'');
 };

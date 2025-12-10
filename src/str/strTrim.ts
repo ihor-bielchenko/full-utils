@@ -83,6 +83,11 @@ import { isStr } from '../index';
  * @public
  * @since 2.0.0
  */
-export function strTrim(value: unknown): string {
-	return String(isStr(value) ? value.trim().normalize('NFKC').replace(/[\u200B-\u200D\uFEFF]/g, '') : '');	
+export function strTrim(value: unknown, border: string = ''): string {
+	const result = String(isStr(value) ? value.trim().normalize('NFKC').replace(/[\u200B-\u200D\uFEFF]/g, '') : '');
+
+	if (border) {
+		return result.split(border).filter((item) => !!item).join(border);
+	}
+	return result;
 }
