@@ -1,5 +1,7 @@
 export * from './arr/arrFuncArgs';
-export * from './arr/arrSplitPortions';
+export * from './arr/arrSplitBatches';
+export * from './arr/arrReplaceTemplate';
+export * from './arr/arrUniqueDeep';
 
 export * from './bool/boolNormalize';
 
