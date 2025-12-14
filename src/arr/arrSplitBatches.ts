@@ -36,31 +36,31 @@
  *
  * @example
  * // Split an array into groups of 3
- * arrSplitPortions([1, 2, 3, 4, 5, 6, 7], 3);
+ * arrSplitBatches([1, 2, 3, 4, 5, 6, 7], 3);
  * // => [[1, 2, 3], [4, 5, 6], [7]]
  *
  * @example
  * // Portion length larger than array
- * arrSplitPortions(['a', 'b'], 5);
+ * arrSplitBatches(['a', 'b'], 5);
  * // => [['a', 'b']]
  *
  * @example
  * // Non-integer or invalid sizes
- * arrSplitPortions([1, 2, 3], 0);   // => []
- * arrSplitPortions([1, 2, 3], -2);  // => []
- * arrSplitPortions([1, 2, 3], NaN); // => []
+ * arrSplitBatches([1, 2, 3], 0);   // => []
+ * arrSplitBatches([1, 2, 3], -2);  // => []
+ * arrSplitBatches([1, 2, 3], NaN); // => []
  *
  * @example
  * // Works with readonly arrays
  * const input = [10, 20, 30, 40] as const;
- * const result = arrSplitPortions(input, 2);
+ * const result = arrSplitBatches(input, 2);
  * // result: [[10, 20], [30, 40]]
  *
  * @category Array
  * @public
  * @since 2.0.0
  */
-export function arrSplitPortions<T>(arr: readonly T[], portionLength: number): T[][] {
+export function arrSplitBatches<T>(arr: readonly T[], portionLength: number): T[][] {
 	if (!Number.isInteger(portionLength) || portionLength <= 0) {
 		return [];
 	}
