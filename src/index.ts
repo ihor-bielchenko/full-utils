@@ -35,6 +35,7 @@ export * from './is/isNumP';
 export * from './is/isNumPZ';
 export * from './is/isObj';
 export * from './is/isObjFilled';
+export * from './is/isObjFlat';
 export * from './is/isPassword';
 export * from './is/isPhone';
 export * from './is/isStr';
