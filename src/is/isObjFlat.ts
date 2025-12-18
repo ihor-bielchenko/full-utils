@@ -1,9 +1,7 @@
-import { 
-	isObjFilled,
-	isObj, 
-	isArr,
-	isFunc,
-} from '../index';
+import { isObjFilled } from './isObjFilled';
+import { isObj } from './isObj';
+import { isArr } from './isArr';
+import { isFunc } from './isFunc';
 
 type Primitive =
 	| string
@@ -14,7 +12,7 @@ type Primitive =
 	| null
 	| undefined;
 
-function isObjFlat(value: unknown): value is Record<string, Primitive> {
+export function isObjFlat(value: unknown): value is Record<string, Primitive> {
 	if (!isObjFilled(value)) {
 		return false;
 	}
