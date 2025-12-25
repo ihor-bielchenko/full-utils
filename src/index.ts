@@ -21,6 +21,7 @@ export type * from './is/types';
 export * from './is/isArr';
 export * from './is/isArrFilled';
 export * from './is/isBool';
+export * from './is/isBoolOrBoolTree';
 export * from './is/isDate';
 export * from './is/isEmail';
 export * from './is/isExists';
