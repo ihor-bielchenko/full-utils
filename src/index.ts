@@ -46,12 +46,6 @@ export * from './is/isStrAscDesc';
 export * from './is/isVar';
 export * from './is/isClass';
 
-export type * from './json/types';
-export * from './json/jsonStrLike';
-export * from './json/jsonParse';
-export * from './json/jsonDecode';
-export * from './json/jsonEncode';
-
 export * from './num/numNormalize';
 
 export * from './str/strLowerCase'
