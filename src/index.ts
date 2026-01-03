@@ -16,6 +16,9 @@ export * from './date/dateSecParts';
 
 export * from './ip-addr/ipStrNum';
 export * from './ip-addr/ipNumStr';
+export * from './ip-addr/parseIPv4';
+export * from './ip-addr/rangeIPv4ToArr';
+export * from './ip-addr/toIPv4';
 
 export type * from './is/types';
 export * from './is/isArr';
