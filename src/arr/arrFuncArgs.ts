@@ -1,132 +1,12 @@
 import { 
 	isStrBool,
 	isStr, 
-	jsonDecode,
 	boolNormalize,
 	numNormalize,
 } from '../index';
 
-/**
- * A narrow union describing which quoting characters are recognized by the parser.
- *
- * @remarks
- * The parser treats both single quotes (`'`) and double quotes (`"`) as valid string
- * delimiters. When inside a quoted segment, commas are not considered separators,
- * and typical backslash escapes are honored (e.g., `\"`, `\'`, `\\`).
- *
- * @public
- * @since 2.0.0
- */
 type Quote = "'" | '"' | null;
 
-/**
- * Parse a human-typed string of function-like arguments into a normalized array of JS values.
- *
- * @summary
- * Splits by **top-level commas** (ignoring commas that appear inside quotes, parentheses,
- * brackets, or braces) and **coerces** each token to a sensible JavaScript type:
- * `null`, `undefined`, booleans, numbers (including `Infinity`/`-Infinity`), strings
- * (with quote stripping and unescaping), and JSON objects/arrays. Tokens that look like
- * a macro or call marker (start with `$` and end with `)`) are returned **as is**.
- *
- * @remarks
- * ### How parsing works
- * 1. **Input normalization**
- *    - Non-string inputs are returned as a single-element array `[value]`.
- *    - Leading/trailing whitespace is trimmed.
- *    - If the entire string is wrapped in square brackets (`[...]`), the brackets are
- *      removed (so the function accepts both `a,b,c` and `[a, b, c]`).
- *    - Empty input (after trimming or after removing `[...]`) yields `[]`.
- *
- * 2. **Tokenization by top-level commas**
- *    - The string is scanned left-to-right.
- *    - The parser tracks nesting **depth** for `()`, `[]`, `{}` and whether it is
- *      currently **inside quotes**. A comma only splits tokens at **depth 0** and
- *      **outside quotes**.
- *
- * 3. **Per-token coercion (in this order)**
- *    - **Macro / call marker**: If a token starts with `$`, contains `(`, and ends
- *      with `)`, it is returned unchanged (e.g., `"$env(PATH)"`).
- *    - **Literals**: `null` → `null`, `undefined` → `undefined`.
- *    - **Booleans**: Using {@link isStrBool} + {@link boolNormalize} (e.g., `"true"`,
- *      `"False"`, `"yes"`, `"0"` depending on your implementation).
- *    - **Numbers**: Using {@link numNormalize}. If the result is finite, it is returned.
- *      Explicit `"Infinity"` and `"-Infinity"` are also supported.
- *    - **Quoted strings**: `'text'` or `"text"` → inner text with escapes processed
- *      (`\\` → `\`, `\'` → `'`, `\"` → `"`).
- *    - **JSON**: If token begins with `{` and ends with `}`, or begins with `[` and
- *      ends with `]`, the function attempts `jsonDecode`. On failure, the raw string
- *      is returned.
- *    - **Fallback**: Raw token as string.
- *
- * ### Escaping inside quotes
- * - Backslash escaping is supported while inside quotes:
- *   - `\\` for a literal backslash
- *   - `\"` inside double quotes
- *   - `\'` inside single quotes
- *
- * ### Non-throwing behavior
- * - The function aims to be **robust** and **non-throwing**. Invalid JSON will be
- *   returned as a plain string rather than crashing.
- *
- * ### Security considerations
- * - The parser **does not** evaluate code; it only returns strings or parsed values.
- *   If you plan to execute anything returned (e.g., tokens starting with `$...`),
- *   do so in a sandbox with explicit allow-lists.
- *
- * ### Limitations
- * - Numerical parsing relies on {@link numNormalize}. Extremely large or high-precision
- *   decimals may still be subject to JavaScript `number` precision limits unless your
- *   `numNormalize` converts to a safer representation.
- * - Only basic backslash escapes are handled in quoted strings (no `\uXXXX` decoding here).
- * - Whitespace outside quotes is trimmed from each token; internal whitespace is preserved.
- *
- * @example
- * // Basic values
- * arrFuncArgs('1, true, "hello"'); // => [1, true, "hello"]
- *
- * @example
- * // Bracket-wrapped list
- * arrFuncArgs('[1, 2, 3]'); // => [1, 2, 3]
- *
- * @example
- * // Nested structures and quoting
- * arrFuncArgs('{"a":1,"b":[2,3]}, "te,xt", (x,y)'); // => [ {a:1,b:[2,3]}, "te,xt", "(x,y)" ]
- *
- * @example
- * // Booleans, null/undefined, and Infinity
- * arrFuncArgs('yes, NO, null, undefined, Infinity, -Infinity');
- * // => [true, false, null, undefined, Infinity, -Infinity]
- *
- * @example
- * // Macro-like token (returned as-is)
- * arrFuncArgs('$env(PATH)'); // => ["$env(PATH)"]
- *
- * @example
- * // Escapes inside quotes
- * arrFuncArgs('"He said: \\"Hi\\"", \'It\\\'s ok\', "\\\\path"');
- * // => ['He said: "Hi"', "It's ok", "\\path"]
- *
- * @example
- * // Empty and whitespace inputs
- * arrFuncArgs('   ');          // => []
- * arrFuncArgs('[]');           // => []
- * arrFuncArgs('[   ]');        // => []
- * arrFuncArgs('  [ a , b ] '); // => ["a", "b"]
- *
- * @param value - Raw string containing comma-separated arguments.
- * If `value` is **not** a string, the function returns `[value]` unchanged.
- *
- * @returns An array of coerced values (`unknown[]`). Each item is one parsed token.
- *
- * @see isStrBool
- * @see boolNormalize
- * @see numNormalize
- * @see jsonDecode
- *
- * @public
- * @since 2.0.0
- */
 export function arrFuncArgs(value: string): unknown[] {
 	if (!isStr(value)) {
 		return [value];
@@ -272,7 +152,7 @@ export function arrFuncArgs(value: string): unknown[] {
 		}
 		if ((rawStr.startsWith('{') && rawStr.endsWith('}')) || (rawStr.startsWith('[') && rawStr.endsWith(']'))) {
 			try {
-				return jsonDecode(rawStr);
+				return JSON.parse(rawStr);
 			} 
 			catch {
 			}

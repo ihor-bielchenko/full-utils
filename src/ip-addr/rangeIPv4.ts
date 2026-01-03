@@ -5,75 +5,7 @@ import { toIPv4 } from './toIPv4';
 import { rangeIPv4ToArr } from './rangeIPv4ToArr';
 
 function rangeIPv4(from: string, to?: string): Generator<string>;
-/**
- * Creates a lazy generator over an inclusive IPv4 range.
- *
- * @remarks
- * The function supports two input modes:
- *
- * 1. **CIDR mode** — when `from` contains a slash and `to` is `undefined`:
- *    ```ts
- *    for (const ip of rangeIPv4('192.168.1.0/30')) { ... }
- *    ```
- *    In this mode, {@link RangeIPv4Options.includeNetwork} and
- *    {@link RangeIPv4Options.includeBroadcast} are honored for masks `<= /30`.
- *    For `/31` and `/32` there is no traditional network/broadcast to exclude.
- *
- * 2. **Ad-hoc range mode** — when `from` is an IPv4 and `to` is either an IPv4
- *    or empty/omitted:
- *    - If `to` is provided, the range is `[min(from,to) .. max(from,to)]`.
- *    - If `to` is omitted or blank, the range spans to the end of the `/24`
- *      block: `A.B.C.D .. A.B.C.255`.
- *
- * The iteration is inclusive of both endpoints and is safe around the upper
- * bound: if the current value is `0xFFFFFFFF`, the generator yields it once and terminates.
- * 
- * This is a lazy generator: it does **not** allocate the entire range up-front,
- * making it suitable for very large ranges (iterate/stream/process on the fly).
- * If you need a materialized array, consider {@link rangeIPv4ToArr} but mind its `limit`.
- *
- * @overload
- * @param from - A CIDR string (e.g. `"10.0.0.0/8"`). If this overload is used, `to` must be `undefined`.
- *
- * @overload
- * @param from - Starting IPv4 address in dotted-quad form.
- * @param to - Optional ending IPv4 address in dotted-quad form. If omitted or empty, the range ends at `A.B.C.255`.
- * @param opts - Iteration options.
- * @returns A generator of dotted-quad IPv4 strings.
- *
- * @param from - See overloads.
- * @param to - See overloads.
- * @param opts - See overloads.
- *
- * @example
- * ```ts
- * // 1) CIDR iteration (include all)
- * [...rangeIPv4('192.168.1.0/30')];
- * // -> ['192.168.1.0','192.168.1.1','192.168.1.2','192.168.1.3']
- *
- * // 2) CIDR iteration without network/broadcast
- * [...rangeIPv4('192.168.1.0/30', undefined, { includeNetwork: false, includeBroadcast: false })];
- * // -> ['192.168.1.1','192.168.1.2']
- *
- * // 3) Ad-hoc range (explicit end)
- * [...rangeIPv4('10.0.0.1', '10.0.0.4')];
- * // -> ['10.0.0.1','10.0.0.2','10.0.0.3','10.0.0.4']
- *
- * // 4) Single address ⇒ to end of /24
- * [...rangeIPv4('10.1.2.3')].at(-1); // '10.1.2.255'
- * ```
- *
- * @throws {Error}
- * - If `from` is not a valid IPv4 (in non-CIDR mode).
- * - If `to` is supplied and is not a valid IPv4 (in non-CIDR mode).
- * - If `from` is not a valid CIDR in CIDR mode.
- *
- * @see {@link cidrToRange} to convert a CIDR to `[ start, end ]`.
- * @see {@link rangeIPv4ToArr} to materialize a range into an array with a safe limit.
- * @public
- * @category IPv4
- * @since 2.0.0
- */
+
 function rangeIPv4(from: string, to: string | undefined, opts?: RangeIPv4Options): Generator<string>;
 
 function* rangeIPv4(from: string, to?: string, opts: RangeIPv4Options = {}): Generator<string> {
