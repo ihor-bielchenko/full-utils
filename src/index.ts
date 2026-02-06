@@ -61,3 +61,6 @@ export * from './str/strNormalize';
 
 export * from './url/urlObj';
 export * from './url/urlDecode';
+
+export * from './rand/randNumCode';
+export * from './rand/randStrCode';
